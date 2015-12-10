@@ -44,9 +44,9 @@ echo '<td bgcolor="#CCCCCC">';
 if ($row["droit"]== '1') { 
 	echo 'Utilisateur';
 }
-	elseif ($row["droit"]== '1') { 
-		echo 'Administrateur';
-	}
+if ($row["droit"]== '2') { 
+	echo 'Administrateur';
+}
 echo '</td>';
 echo '<td bgcolor="#CCCCCC">'.$row["logo"].'</td>';
 echo '<td bgcolor="#CCCCCC" align="center"><form method="post" action="mod_user.php"><input type="hidden" name="id_user" value='.$row["id_user"].' /><input type="image" src="img/mod.jpg" width="32" height="32" border="0" alt="modifier" name="mod"></form></td>';

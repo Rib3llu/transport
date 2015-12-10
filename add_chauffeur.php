@@ -63,7 +63,7 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 	}
 	
 ?>
-		<h2><a href="index.php"><< Retour a l'accueil <<</a></h2>
+		<h2><a href="index.php"><< Accueil <<</a></h2>
     </body>
 
 </html>

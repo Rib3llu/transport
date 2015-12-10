@@ -1,4 +1,6 @@
 <html>
+<meta charset="utf-8">
+
 <title>Affichage Clients</title>
 <body>
         <h1 align="center">Listing des Clients</h1>
@@ -27,9 +29,9 @@ echo '<td bgcolor="#669999"><b><u>Nom</u></b></td>';
 echo '<td bgcolor="#669999"><b><u>Adresse</u></b></td>';
 echo '<td bgcolor="#669999"><b><u>Code Postal</u></b></td>';
 echo '<td bgcolor="#669999"><b><u>Ville</u></b></td>';
-echo '<td bgcolor="#669999"><b><u>N° de SIRET</u></b></td>' ;
+echo '<td bgcolor="#669999"><b><u>N. de SIRET</u></b></td>' ;
 echo '<td bgcolor="#669999"><b><u>TVA</u></b></td>' ;
-echo '<td bgcolor="#669999"><b><u>Téléphone</u></b></td>' ;
+echo '<td bgcolor="#669999"><b><u>T&eacutel&eacutephone</u></b></td>' ;
 echo '<td bgcolor="#669999"><b><u>Fax</u></b></td>' ;
 echo '<td bgcolor="#669999"><b><u>Adresse Mail</u></b></td>' ;
 echo '<td bgcolor="#669999"><b><u>Contact</u></b></td>' ;

@@ -1,5 +1,4 @@
 <html>
-
 <meta charset="utf-8">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -20,6 +19,7 @@ include "fonctions_base.php";
 // Si le formulaire est rempli
 if (isset ($_POST['valider']) && !empty($_POST['p_vente'])){
 	//On récupère les valeurs entrées par l'utilisateur :
+	$id_produit=$_POST['id_produit'];
 	$detail=$_POST['detail'];
 	$descr=$_POST['descr'];
 	$p_revient=$_POST['p_revient'];
@@ -29,7 +29,8 @@ if (isset ($_POST['valider']) && !empty($_POST['p_vente'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'INSERT INTO produits VALUES("","'.$detail.'","'.$descr.'","'.$p_revient.'","'.$p_vente.'")';
+		$sql = 'UPDATE produits SET detail="'.$marque.'", description="'.$mod.'", prix_revient="'.$immat.'", prix_vente="'.$date.'" WHERE id_produit="'.$id_produit.'"';
+$sql = 'INSERT INTO produits VALUES("","'.$detail.'","'.$descr.'","'.$p_revient.'","'.$p_vente.'")';
 	 
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -39,8 +40,8 @@ if (isset ($_POST['valider']) && !empty($_POST['p_vente'])){
 	// on ferme la connexion
 	mysql_close();
 	
-	// on valide la creation
-	echo "<p><h2>Le produit à bien &eacutet&eacute cr&eacute&eacute</h2></p>";
+	// on valide la modification
+	echo "<p><h2>Le produit à bien &eacutet&eacute modifi&eacute</h2></p>";
 
 	}
 	

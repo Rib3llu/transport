@@ -1,4 +1,5 @@
 <html>
+<meta charset="utf-8">
 <title>Affichage Tracteurs</title>
 <body>
         <h1 align="center">Listing des Tracteurs</h1>
@@ -60,6 +61,7 @@ mysql_free_result($result);
  
 ?>
        <p><div align="center"><a href="add_tracteur.php"><img src="img/plus.jpg" width="32" height="32" border="0"></a></div></p>
+	   <p><div align="center"><h3><a href="index.php"><< Accueil <<</a></h3></div></p>
 
 </body>
 </html>
