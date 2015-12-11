@@ -1,14 +1,11 @@
-<html>
-<meta charset="utf-8">
-
-<title>Affichage Clients</title>
-<body>
-        <h1 align="center">Listing des Clients</h1>
-
 <?php
-// ajout des fonctions
+// inclusion
 include "fonctions_base.php";
-
+include "fonctions_annexe.php";
+include "header.php";
+?>
+        <br><h1 align="center">Listing des Clients</h1><br>
+<?php
 //On se connecte a la base
 connectBase();
 	 
@@ -21,41 +18,41 @@ $total = mysql_num_rows($result);
 // si on a récupéré un résultat on l'affiche.
 if($total) {
 // debut du tableau
-echo '<table bgcolor="#FFFFFF" align="center">'."\n";
+echo '<div class="col-md-12" align="center"><table class="table table-striped">'."\n";
 // première ligne on affiche les titres prénom et surnom dans 2 colonnes
 echo '<tr>';
-echo '<td bgcolor="#669999"><b><u>Identifiant</u></b></td>';
-echo '<td bgcolor="#669999"><b><u>Nom</u></b></td>';
-echo '<td bgcolor="#669999"><b><u>Adresse</u></b></td>';
-echo '<td bgcolor="#669999"><b><u>Code Postal</u></b></td>';
-echo '<td bgcolor="#669999"><b><u>Ville</u></b></td>';
-echo '<td bgcolor="#669999"><b><u>N. de SIRET</u></b></td>' ;
-echo '<td bgcolor="#669999"><b><u>TVA</u></b></td>' ;
-echo '<td bgcolor="#669999"><b><u>T&eacutel&eacutephone</u></b></td>' ;
-echo '<td bgcolor="#669999"><b><u>Fax</u></b></td>' ;
-echo '<td bgcolor="#669999"><b><u>Adresse Mail</u></b></td>' ;
-echo '<td bgcolor="#669999"><b><u>Contact</u></b></td>' ;
-echo '<td bgcolor="#669999"><b><u>Observation</u></b></td>' ;
-echo '<td bgcolor="#669999"><b><u>Modifier</u></b></td>' ;
-echo '<td bgcolor="#669999"><b><u>Supprimer</u></b></td>' ;
+echo '<td><b><u>Identifiant</u></b></td>';
+echo '<td><b><u>Nom</u></b></td>';
+echo '<td><b><u>Adresse</u></b></td>';
+echo '<td><b><u>Code Postal</u></b></td>';
+echo '<td><b><u>Ville</u></b></td>';
+echo '<td><b><u>N. de SIRET</u></b></td>' ;
+echo '<td><b><u>TVA</u></b></td>' ;
+echo '<td><b><u>T&eacutel&eacutephone</u></b></td>' ;
+echo '<td><b><u>Fax</u></b></td>' ;
+echo '<td><b><u>Adresse Mail</u></b></td>' ;
+echo '<td><b><u>Contact</u></b></td>' ;
+echo '<td><b><u>Observation</u></b></td>' ;
+echo '<td><b><u>Modifier</u></b></td>' ;
+echo '<td><b><u>Supprimer</u></b></td>' ;
 echo '</tr>'."\n";
 // lecture et affichage des résultats sur 2 colonnes, 1 résultat par ligne. 
 while($row = mysql_fetch_array($result)) {
 echo '<tr>';
-echo '<td bgcolor="#CCCCCC">'.$row["id_client"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["nom"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["adresse"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["cp"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["ville"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["siret"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["tva"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["tel"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["fax"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["mail"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["contact"].'</td>';
-echo '<td bgcolor="#CCCCCC">'.$row["observation"].'</td>';
-echo '<td bgcolor="#CCCCCC" align="center"><form method="post" action="mod_client.php"><input type="hidden" name="id_client" value='.$row["id_client"].' /><input type="image" src="img/mod.jpg" width="32" height="32" border="0" alt="modifier" name="mod"></form></td>';
-echo '<td bgcolor="#CCCCCC" align="center"><form method="post" action="supp_client.php"><input type="hidden" name="id_client" value='.$row["id_client"].' /><input type="image" src="img/supp.png" width="32" height="32" border="0" alt="supprimer" name="del_img"></form></td>';
+echo '<td>'.$row["id_client"].'</td>';
+echo '<td>'.$row["nom"].'</td>';
+echo '<td>'.$row["adresse"].'</td>';
+echo '<td>'.$row["cp"].'</td>';
+echo '<td>'.$row["ville"].'</td>';
+echo '<td>'.$row["siret"].'</td>';
+echo '<td>'.$row["tva"].'</td>';
+echo '<td>'.$row["tel"].'</td>';
+echo '<td>'.$row["fax"].'</td>';
+echo '<td>'.$row["mail"].'</td>';
+echo '<td>'.$row["contact"].'</td>';
+echo '<td>'.$row["observation"].'</td>';
+echo '<td align="center"><form method="post" action="mod_client.php"><input type="hidden" name="id_client" value='.$row["id_client"].' /><input type="image" src="img/mod.jpg" width="32" height="32" border="0" alt="modifier" name="mod"></form></td>';
+echo '<td align="center"><form method="post" action="supp_client.php"><input type="hidden" name="id_client" value='.$row["id_client"].' /><input type="image" src="img/supp.png" width="32" height="32" border="0" alt="supprimer" name="del_img"></form></td>';
 
 echo '</tr>'."\n";
 }
@@ -69,7 +66,8 @@ mysql_free_result($result);
  
 ?>
        <p><div align="center"><a href="add_client.php"><img src="img/plus.jpg" width="32" height="32" border="0"></a></div></p>
-	   <p><div align="center"><h3><a href="index.php"><< Accueil <<</a></h3></div></p>
-
-</body>
-</html>
+	   <div class="page-header"><a href="admin.php"><button type="button" class="btn btn-primary">Retour</button></a></div>
+	   </div>
+<?php 
+include "footer.php"; 
+?>

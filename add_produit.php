@@ -42,8 +42,7 @@ if (isset ($_POST['valider']) && !empty($_POST['p_vente'])){
 	// on valide la creation
 	echo "<p><h2>Le produit à bien &eacutet&eacute cr&eacute&eacute</h2></p>";
 
-	}
-	
+}
 	// sinon on affiche le formulaire
 	else {
 		echo "
@@ -58,6 +57,7 @@ if (isset ($_POST['valider']) && !empty($_POST['p_vente'])){
 	}
 
 ?>
+		<h2><a href="aff_produits.php"><< Retour Listing <<</a></h2>
 		<h2><a href="index.php"><< Accueil <<</a></h2>
     </body>
 

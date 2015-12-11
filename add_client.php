@@ -61,6 +61,7 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 		}
 	
 ?>
+		<h2><a href="aff_clients.php"><< Retour Listing <<</a></h2>
 		<h2><a href="index.php"><< Retour a l'accueil <<</a></h2>
     </body>
 </html>

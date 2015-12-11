@@ -29,8 +29,7 @@ if (isset ($_POST['valider']) && !empty($_POST['p_vente'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-		$sql = 'UPDATE produits SET detail="'.$marque.'", description="'.$mod.'", prix_revient="'.$immat.'", prix_vente="'.$date.'" WHERE id_produit="'.$id_produit.'"';
-$sql = 'INSERT INTO produits VALUES("","'.$detail.'","'.$descr.'","'.$p_revient.'","'.$p_vente.'")';
+	$sql = 'UPDATE produits SET detail="'.$detail.'", description="'.$descr.'", prix_revient="'.$p_revient.'", prix_vente="'.$p_vente.'" WHERE id_produit="'.$id_produit.'"';
 	 
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -47,19 +46,42 @@ $sql = 'INSERT INTO produits VALUES("","'.$detail.'","'.$descr.'","'.$p_revient.
 	
 	// sinon on affiche le formulaire
 	else {
+		//On se connecte
+		connectBase();
+		
+		// On recupere ID 
+		$id_produit = $_POST['id_produit'];
+		
+		// On recupere la ligne
+		$select = 'SELECT id_produit,detail,description,prix_revient,prix_vente FROM produits WHERE id_produit = '. "$id_produit" .' '; 
+	 
+		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
+		$total = mysql_num_rows($result);
+	 
+	// On affiche le formulaire pre-rempli
+	while($row = mysql_fetch_array($result)) {
+		
+	$id_produit=$row['id_produit'];
+
+	$detail=$row['detail'];
+	$descr=$row['description'];
+	$p_revient=$row['prix_revient'];
+	$p_vente=$row['prix_vente'];
+
 		echo "
         <h2>Entrez les données demandées :</h2>
-        <form name=\"inscription\" method=\"post\" action=\"add_produit.php\">
-            D&eacutetail :	<input type=\"text\" name=\"detail\"/><br><br/>
-			Description :	<input type=\"text\" name=\"descr\"/><br><br/>
-			Prix de Revient : <input type=\"text\" name=\"p_revient\"/><br><br>
-            Prix de Vente :	<input type=\"text\" name=\"p_vente\"/><br><br/>
+        <form name=\"inscription\" method=\"post\" action=\"mod_produit.php\">
+            D&eacutetail :	<input type=\"text\" name=\"detail\" value=\"$detail\"/><br><br/>
+			Description :	<input type=\"text\" name=\"descr\" value=\"$descr\"/><br><br/>
+			Prix de Revient : <input type=\"text\" name=\"p_revient\" value=\"$p_revient\"/><br><br>
+            Prix de Vente :	<input type=\"text\" name=\"p_vente\" value=\"$p_vente\"/><br><br/>
+			<input type=\"hidden\" name=\"id_produit\" value=\"$id_produit\">
 			<br><input type=\"submit\" name=\"valider\" value=\"OK\"/><br/>
         </form>";
 	}
+	}
 
 ?>
-		<h2><a href="index.php"><< Accueil <<</a></h2>
+	<h2><a href="aff_produits.php"><< Retour au Listing <<</a></h2>
     </body>
-
 </html>

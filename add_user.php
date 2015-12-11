@@ -1,12 +1,12 @@
-<html>
-    <head><title>Formulaire cr&eactureation d'un Utilisateur </title></head>
-    <body>
-        <h1>Creation d'un compte Utilisateur</h1>
-
 <?php
-// fonction
+// inclusion
 include "fonctions_base.php";
-
+include "fonctions_annexe.php";
+include "header.php";
+?>
+	<div class="container">
+     <div class="row">
+<?php
 // Si le formulaire est rempli
 if (isset ($_POST['valider']) && !empty($_POST['mail'])){
 	//On récupère les valeurs entrées par l'utilisateur :
@@ -30,25 +30,56 @@ if (isset ($_POST['valider']) && !empty($_POST['mail'])){
 	// on ferme la connexion
 	mysql_close();
 	
+	// on valide la creation
+	echo "<p><h2>L'utilisateur à bien &eacutet&eacute cr&eacute&eacute</h2></p>";
+
 	// Sinon on affiche le formulaire
 }
 else{
-		echo "<h2>Entrez les données demandées :</h2>
-        <form name=\"inscription\" method=\"post\" action=\"add_user.php\">
-            Entrez le mail utilisateur : <input type=\"text\" name=\"mail\"/><br><br>
-            Mot de passe :	<input type=\"text\" name=\"password\"/><br><br/>
-			Nom :	<input type=\"text\" name=\"nom\"/><br><br/>
-			Prenom :	<input type=\"text\" name=\"prenom\"/><br><br/>
-			Role :	<select name=\"droit\">
-				<option value=\"1\">Chauffeur</option>
-				<option value=\"2\">Administration</option></select> <br>
-			<br><input type=\"submit\" name=\"valider\" value=\"OK\"/><br/>
-        </form>";
+		echo "
+		<br><h1 align=\"center\">Ajout d'un Utilisateur</h1>
+		<div class=\"col-md-3\"></div>
+		<div class=\"col-md-6\" align=\"center\"><table class=\"table table-striped\">
+		<br><h2>Entrez les données demandées :</h2><br>
+			<form name=\"inscription\" method=\"post\" action=\"add_user.php\">
+				<tr>
+					<td>Entrez le mail utilisateur : </td>
+					<td><input type=\"text\" name=\"mail\"/></td>
+				</tr>
+				<tr>
+					<td>Mot de passe :	</td>
+					<td><input type=\"text\" name=\"password\"/></td>
+				</tr>
+				<tr>
+					<td>Nom : </td>
+					<td><input type=\"text\" name=\"nom\"/></td>
+				</tr>
+				<tr>
+					<td>Prenom : </td>
+					<td><input type=\"text\" name=\"prenom\"/></td>
+				</tr>
+				<tr>
+					<td>Role :	</td>
+					<td><select name=\"droit\">
+							<option value=\"1\">Chauffeur</option>
+							<option value=\"2\">Administration</option></select>
+					</td>
+				</tr>
+				<tr>
+					<td align=\"right\"><input class=\"btn btn-success\" type=\"submit\" name=\"valider\" value=\"Valider\"/></td>
+				</tr>
+				</form>
+				</table>
+		";
 	}
 	
-
 ?>
-		<h2><a href="index.php"><< Accueil <<</a></h2>
-    </body>
-
-</html>
+	<div class="page-header">
+		<a href="aff_user.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
+	    <a href="admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
+	</div>
+		</div>
+			</div>
+<?php 
+include "footer.php"; 
+?>

@@ -1,34 +1,11 @@
-<html>
 <?php
+// inclusion
 include "fonctions_base.php";
+include "fonctions_annexe.php";
+include "header.php";
 ?>
-<meta charset="utf-8">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script>
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-  </script>
-  
-   <head><title>Formulaire cr&eactureation d'un Tracteur </title></head>
-    <body>
-        <h1>Creation d'un Tracteur</h1>
-        <h2>Entrez les données demandées :</h2>
-        <form name="inscription" method="post" action="add_tracteur.php">
-            Marque :	<input type="text" name="marque"/><br><br/>
-			Mod&egravele :	<input type="text" name="mod"/><br><br/>
-			Immatriculation : <input type="text" name="immat"/><br><br>
-            Date construction :	<input type="text" id="datepicker" name="date"/><br><br/>
-			Date prochain Controle Technique :	<input type="text" id="datepicker" name="ct"/><br><br/>
-			Date prochaine r&eacutevision :	<input type="text" id="datepicker" name="revision"><br><br/>
-			Observation : <input type="text" name="obs"/><br><br>
-			<br><input type="submit" name="valider" value="OK"/><br/>
-        </form>
-		<h2><a href="index.php"><< Retour a l'accueil <<</a></h2>
-    </body>
+	<div class="container">
+     <div class="row">
 <?php
 // Si le formulaire est rempli
 if (isset ($_POST['valider']) && !empty($_POST['immat'])){
@@ -58,7 +35,62 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	 
 	// on ferme la connexion
 	mysql_close();
-	}
+	
+	// on valide la creation
+	echo "<p><h2>Le tracteur à bien &eacutet&eacute cr&eacute&eacute</h2></p>";
+}
+	
+	// Sinon on affiche le formulaire
+	else{
 
+	echo "
+			<br><h1 align=\"center\">Ajout d'un Tracteur</h1>
+		<div class=\"col-md-3\"></div>
+		<div class=\"col-md-6\" align=\"center\"><table class=\"table table-striped\">
+		<br><h2>Entrez les données demandées :</h2><br>
+		<form name=\"inscription\" method=\"post\" action=\"add_tracteur.php\">
+		<tr>
+			<td>Marque :	</td>
+			<td><input type=\"text\" name=\"marque\"/></td>
+		</tr>
+		<tr>
+			<td>Mod&egravele :	</td>
+			<td><input type=\"text\" name=\"mod\"/></td>
+		</tr>
+		<tr>
+			<td>Immatriculation : </td>
+			<td><input type=\"text\" name=\"immat\"/></td>
+		</tr>
+		<tr>
+			<td>Date construction :	</td>
+			<td><input type=\"text\" id=\"datepicker\" name=\"date\"/></td>
+		</tr>
+		<tr>
+			<td>Date prochain Controle Technique :	</td>
+			<td><input type=\"text\" id=\"datepicker\" name=\"ct\"/></td>
+		</tr>
+		<tr>
+			<td>Date prochaine r&eacutevision :	</td>
+			<td><input type=\"text\" id=\"datepicker\" name=\"revision\"></td>
+		</tr>
+		<tr>
+			<td>Observation : </td>
+			<td><input type=\"text\" name=\"obs\"/></td>
+		</tr>
+		
+			<td align=\"right\"><input class=\"btn btn-success\" type=\"submit\" name=\"valider\" value=\"Valider\"/></td>
+		
+        </form>
+		</table>
+		";
+	}
 ?>
-</html>
+	<div class="page-header">
+		<a href="aff_tracteurs.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
+	    <a href="admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
+	</div>
+		</div>
+			</div>
+<?php 
+include "footer.php"; 
+?>
