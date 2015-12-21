@@ -37,10 +37,10 @@ echo '<td>'.$row["marque"].'</td>';
 echo '<td>'.$row["modele"].'</td>';
 echo '<td>'.$row["immatriculation"].'</td>';
 echo '<td>'.$row["date"].'</td>';
-echo '<td>'.$row["visite"].'</td>';
+echo '<td><font color="red">'.$row["visite"].'</font></td>';
 echo '<td>'.$row["entretien"].'</td>';
 echo '<td>'.$row["observation"].'</td>';
-echo '<td><a href="mod_tracteur.php?id_tracteur='.$row["id_tracteur"].'"><button type="button" class="btn btn-default">Afficher</button></a></td>';
+echo '<td><a href="ct_tracteur.php?id_tracteur='.$row["id_tracteur"].'"><button type="button" class="btn btn-default">Passer</button></a></td>';
 echo '</tr>'."\n";
 }
 echo '</table>'."\n";
@@ -81,13 +81,13 @@ echo '<td>'.$row["modele"].'</td>';
 echo '<td>'.$row["immatriculation"].'</td>';
 echo '<td>'.$row["type"].'</td>';
 echo '<td>'.$row["date"].'</td>';
-echo '<td>'.$row["controle"].'</td>';
+echo '<td><font color="red">'.$row["controle"].'</font></td>';
 echo '<td>'.$row["revision"].'</td>';
 echo '<td>'.$row["observation"].'</td>';
 echo '<td>'.$row["longueur"].'</td>';
 echo '<td>'.$row["largeur"].'</td>';
 echo '<td>'.$row["hauteur"].'</td>';
-echo '<td><a href="mod_remorque.php?id_remorque='.$row["id_remorque"].'"><button type="button" class="btn btn-default">Afficher</button></a></td>';
+echo '<td><a href="ct_remorque.php?id_remorque='.$row["id_remorque"].'"><button type="button" class="btn btn-default">Passer</button></a></td>';
 echo '</tr>'."\n";
 }
 echo '</table>'."\n";

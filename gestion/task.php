@@ -28,8 +28,6 @@ $today = date("d-m-Y");
         <th>Expéditeur</th>
         <th>Immatriculation</th>
         <th>Livraison</th>
-		<th>Chauffeur Chargeur</th>
-		<th>Chauffeur Livreur</th>
         <th>Actions</th>
     </tr>
 </thead>
