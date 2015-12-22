@@ -22,7 +22,6 @@ echo '<td>'.$row["tel"].'</td>';
 echo '<td>'.$row["mail"].'</td>';
 echo '<td>'.$row["permis"].'</td>';
 echo '<td><font color="red">'.$row["expiration"].'</font></td>';
-echo '<td><a href="mod_chauffeur.php?id_chauffeur='.$row["id_chauffeur"].'"><button type="button" class="btn btn-default">Afficher</button></a></td>';
 echo '</tr>'."\n";
 }
 echo '</table>'."\n";

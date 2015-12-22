@@ -24,6 +24,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	$longueur=$_POST['longueur'];
 	$largeur=$_POST['largeur'];
 	$hauteur=$_POST['hauteur'];
+	$defaut=$_POST['defaut'];
 
 	$date = date("Y-m-d", strtotime($date));
 	$visite = date("Y-m-d", strtotime($ct));
@@ -33,7 +34,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'UPDATE remorque SET marque="'.$marque.'", modele="'.$modele.'", immatriculation="'.$immat.'", type="'.$type.'", date="'.$date.'" , revision="'.$entretien.'", controle="'.$visite.'" , longueur="'.$longueur.'" , largeur="'.$largeur.'" , hauteur="'.$hauteur.'"  , observation="'.$obs.'" WHERE id_remorque="'.$id_remorque.'"';
+	$sql = 'UPDATE remorque SET marque="'.$marque.'", modele="'.$modele.'", immatriculation="'.$immat.'", type="'.$type.'", date="'.$date.'" , revision="'.$entretien.'", controle="'.$visite.'" , longueur="'.$longueur.'" , largeur="'.$largeur.'" , hauteur="'.$hauteur.'"  , observation="'.$obs.'", defaut="'.$defaut.'" WHERE id_remorque="'.$id_remorque.'"';
 	
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -65,7 +66,7 @@ else{
 		}
 		
 		// On recupere la ligne
-		$select = 'SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,longueur,largeur,hauteur FROM remorque WHERE id_remorque = '. "$id_remorque" .' '; 
+		$select = 'SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,defaut,longueur,largeur,hauteur FROM remorque WHERE id_remorque = '. "$id_remorque" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -86,6 +87,7 @@ else{
 	$longueur=$row['longueur'];
 	$largeur=$row['largeur'];
 	$hauteur=$row['hauteur'];
+	$defaut=$row['defaut'];
 
 	echo "
         <h1 align=\"center\">Modification d'une Remorque</h1><br>
@@ -123,7 +125,11 @@ else{
 		</tr>
 		<tr>
 			<td>Observation : </td>
-			<td><input type=\"text\" name=\"obs\" value=\"$obs\"/></td>
+			<td><textarea name=\"obs\" rows=\"3\" cols=\"30\">$obs</textarea></td>
+		</tr>
+		<tr>
+			<td>Defaut : </td>
+			<td><textarea name=\"defaut\" rows=\"3\" cols=\"30\">$defaut</textarea></td>
 		</tr>
 		<tr>
 			<td>Longueur :	</td>

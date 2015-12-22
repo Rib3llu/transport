@@ -24,7 +24,7 @@ if (isset ($_POST['valider'])){
 	$longueur=$_POST['longueur'];
 	$largeur=$_POST['largeur'];
 	$hauteur=$_POST['hauteur'];
-	$nature="controle";
+	$nature="revision";
 	$datect=$_POST['datect'];
 	$prix=$_POST['prix'];
 	$defaut=$_POST['defaut'];
@@ -103,7 +103,7 @@ else{
 		<div class=\"col-md-3\"></div>
 			<div class=\"col-md-6\" align=\"center\">
 		<table class=\"table table-striped\">
-        <form name=\"inscription\" method=\"post\" action=\"ct_remorque.php\">
+        <form name=\"inscription\" method=\"post\" action=\"rev_remorque.php\">
 		<tr>
 			<td>Marque :	</td>
 			<td>$marque</td><input type=\"hidden\" name=\"marque\" value=\"$marque\"/>
@@ -120,7 +120,7 @@ else{
 
 		</tr>
 		<tr>
-			<td>Date passage du Controle Technique :	</td>
+			<td>Date Revision :	</td>
 			<td><input type=\"text\" id=\"datepicker\" name=\"datect\" value=\"$ct\"/></td>
 		</tr>
 		<tr>
@@ -128,7 +128,7 @@ else{
 			<td><textarea name=\"defaut\" rows=\"3\" cols=\"30\">$defaut</textarea></td>
 		</tr>
 		<tr>
-			<td><font color=\"red\">Date prochain Controle Technique :	</font></td>
+			<td><font color=\"red\">Date prochaine revision :	</font></td>
 			<td><input type=\"text\" id=\"datepicker\" name=\"ct\"/></td>
 		</tr>
 		<tr>

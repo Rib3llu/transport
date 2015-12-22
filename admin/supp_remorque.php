@@ -49,7 +49,7 @@ else{
 		}
 		
 		// On recupere la ligne
-		$select = 'SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,longueur,largeur,hauteur FROM remorque WHERE id_remorque = '. "$id_remorque" .' '; 
+		$select = 'SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,defaut,longueur,largeur,hauteur FROM remorque WHERE id_remorque = '. "$id_remorque" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -77,7 +77,7 @@ else{
 		<div class=\"col-md-3\"></div>
 			<div class=\"col-md-6\" align=\"center\">
 		<table class=\"table table-striped\">
-        <form name=\"inscription\" method=\"post\" action=\"mod_remorque.php\">
+        <form name=\"inscription\" method=\"post\" action=\"supp_remorque.php\">
 		<tr>
 			<td>Marque :	</td>
 			<td>$marque</td>
@@ -109,6 +109,10 @@ else{
 		<tr>
 			<td>Observation : </td>
 			<td>$obs</td>
+		</tr>
+		<tr>
+			<td>Defaut : </td>
+			<td>$defaut</td>
 		</tr>
 		<tr>
 			<td>Longueur :	</td>

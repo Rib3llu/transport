@@ -11,7 +11,7 @@ connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = 'SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,longueur,largeur,hauteur FROM remorque';
+$select = 'SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,defaut,longueur,largeur,hauteur FROM remorque';
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
@@ -26,10 +26,11 @@ echo '<td><b><u>Marque</u></b></td>';
 echo '<td><b><u>Modèle</u></b></td>';
 echo '<td><b><u>Immatriculation</u></b></td>';
 echo '<td><b><u>Type</u></b></td>';
-echo '<td><b><u>Date Construction</u></b></td>';
-echo '<td><b><u>Date prochain Controle Technique</u></b></td>' ;
-echo '<td><b><u>Date prochaine Révision</u></b></td>' ;
+echo '<td><b><u>Date</u></b></td>';
+echo '<td><b><u>C.T</u></b></td>' ;
+echo '<td><b><u>Révision</u></b></td>' ;
 echo '<td><b><u>Observation</u></b></td>' ;
+echo '<td><b><u>Defaut</u></b></td>' ;
 echo '<td><b><u>Longueur</u></b></td>' ;
 echo '<td><b><u>Largeur</u></b></td>' ;
 echo '<td><b><u>Hauteur</u></b></td>' ;
@@ -48,6 +49,7 @@ echo '<td>'.$row["date"].'</td>';
 echo '<td>'.$row["controle"].'</td>';
 echo '<td>'.$row["revision"].'</td>';
 echo '<td>'.$row["observation"].'</td>';
+echo '<td>'.$row["defaut"].'</td>';
 echo '<td>'.$row["longueur"].'</td>';
 echo '<td>'.$row["largeur"].'</td>';
 echo '<td>'.$row["hauteur"].'</td>';

@@ -20,10 +20,9 @@ echo '<td>'.$row["marque"].'</td>';
 echo '<td>'.$row["modele"].'</td>';
 echo '<td>'.$row["immatriculation"].'</td>';
 echo '<td>'.$row["date"].'</td>';
-echo '<td>'.$row["visite"].'</td>';
+echo '<td><font color="red">'.$row["visite"].'</font></td>';
 echo '<td>'.$row["entretien"].'</td>';
 echo '<td>'.$row["observation"].'</td>';
-echo '<td><a href="mod_tracteur.php?id_tracteur='.$row["id_tracteur"].'"><button type="button" class="btn btn-default">Afficher</button></a></td>';
 echo '</tr>'."\n";
 }
 echo '</table>'."\n";

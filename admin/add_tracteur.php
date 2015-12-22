@@ -16,6 +16,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	$date=$_POST['date'];
 	$ct=$_POST['ct'];
 	$revision=$_POST['revision'];
+	$defaut=$_POST['defaut'];
 	$obs=$_POST['obs'];
 
 	$date = date("Y-m-d", strtotime($date));
@@ -26,7 +27,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'INSERT INTO tracteur VALUES("","'.$marque.'","'.$mod.'","'.$immat.'","'.$date.'","'.$visite.'","'.$entretien.'","'.$obs.'")';
+	$sql = 'INSERT INTO tracteur VALUES("","'.$marque.'","'.$mod.'","'.$immat.'","'.$date.'","'.$visite.'","'.$entretien.'","'.$obs.'","'.$defaut.'")';
 	 
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -75,9 +76,12 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 		</tr>
 		<tr>
 			<td>Observation : </td>
-			<td><input type=\"text\" name=\"obs\"/></td>
+			<td><textarea name=\"obs\" rows=\"4\" cols=\"30\"></textarea></td>
 		</tr>
-		
+		<tr>
+			<td>Defaut : </td>
+			<td><textarea name=\"defaut\" rows=\"5\" cols=\"30\"></textarea></td>
+		</tr>		
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-success\" type=\"submit\" name=\"valider\" value=\"Valider\"/></td>
 		
         </form>

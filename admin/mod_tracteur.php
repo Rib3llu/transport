@@ -19,6 +19,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	$ct=$_POST['ct'];
 	$revision=$_POST['revision'];
 	$obs=$_POST['obs'];
+	$defaut=$_POST['defaut'];
 
 	$date = date("Y-m-d", strtotime($date));
 	$visite = date("Y-m-d", strtotime($ct));
@@ -28,7 +29,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'UPDATE tracteur SET marque="'.$marque.'", modele="'.$mod.'", immatriculation="'.$immat.'", date="'.$date.'", visite="'.$visite.'" , entretien="'.$entretien.'" , observation="'.$obs.'" WHERE id_tracteur="'.$id_tracteur.'"';
+	$sql = 'UPDATE tracteur SET marque="'.$marque.'", modele="'.$mod.'", immatriculation="'.$immat.'", date="'.$date.'", defaut="'.$defaut.'", visite="'.$visite.'" , entretien="'.$entretien.'" , observation="'.$obs.'" WHERE id_tracteur="'.$id_tracteur.'"';
 	
 	 
 	/*on lance la commande (mysql_query) et au cas où, 
@@ -58,7 +59,7 @@ else{
 		}
 		
 		// On recupere la ligne
-		$select = 'SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation FROM tracteur WHERE id_tracteur = '. "$id_tracteur" .' '; 
+		$select = 'SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation,defaut FROM tracteur WHERE id_tracteur = '. "$id_tracteur" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -74,7 +75,8 @@ else{
 	$date=$row['date'];
 	$visite=$row['visite'];
 	$revision=$row['entretien'];
-	$observation=$row['observation'];
+	$defaut=$row['defaut'];
+	$obs=$row['observation'];
 
 	echo "
 	    <h1 align=\"center\">Modification d'un Tracteur</h1><br>
@@ -108,7 +110,11 @@ else{
 		</tr>
 		<tr>
 			<td>Observation : </td>
-			<td><input type=\"text\" name=\"obs\" value=\"$observation\"/></td>
+			<td><textarea name=\"obs\" rows=\"3\" cols=\"30\">$obs</textarea></td>
+		</tr>
+		<tr>
+			<td>Defaut : </td>
+			<td><textarea name=\"defaut\" rows=\"3\" cols=\"30\">$defaut</textarea></td>
 		</tr>
 		<tr>
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-success\" type=\"submit\" name=\"valider\" value=\"Valider\"/></td>

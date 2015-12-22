@@ -11,7 +11,7 @@ connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = 'SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation FROM tracteur';
+$select = 'SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation,defaut FROM tracteur';
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
@@ -25,10 +25,11 @@ echo '<td><b><u>Identifiant</u></b></td>';
 echo '<td><b><u>Marque</u></b></td>';
 echo '<td><b><u>Modèle</u></b></td>';
 echo '<td><b><u>Immatriculation</u></b></td>';
-echo '<td><b><u>Date construction</u></b></td>';
-echo '<td><b><u>Date prochain Contrôle Technique</u></b></td>' ;
-echo '<td><b><u>Date prochaine Révision</u></b></td>' ;
+echo '<td><b><u>Date</u></b></td>';
+echo '<td><b><u>C.T</u></b></td>' ;
+echo '<td><b><u>Révision</u></b></td>' ;
 echo '<td><b><u>Observation</u></b></td>' ;
+echo '<td><b><u>Defaut</u></b></td>' ;
 echo '<td><b><u>Modifier</u></b></td>' ;
 echo '<td><b><u>Supprimer</u></b></td>' ;
 echo '</tr>'."\n";
@@ -43,6 +44,7 @@ echo '<td>'.$row["date"].'</td>';
 echo '<td>'.$row["visite"].'</td>';
 echo '<td>'.$row["entretien"].'</td>';
 echo '<td>'.$row["observation"].'</td>';
+echo '<td>'.$row["defaut"].'</td>';
 echo '<td align="center"><form method="post" action="mod_tracteur.php"><input type="hidden" name="id_tracteur" value='.$row["id_tracteur"].' /><input type="image" src="../img/mod.jpg" width="32" height="32" border="0" alt="modifier" name="mod"></form></td>';
 echo '<td align="center"><form method="post" action="supp_tracteur.php"><input type="hidden" name="id_tracteur" value='.$row["id_tracteur"].' /><input type="image" src="../img/supp.png" width="32" height="32" border="0" alt="supprimer" name="del_img"></form></td>';
 echo '</tr>'."\n";

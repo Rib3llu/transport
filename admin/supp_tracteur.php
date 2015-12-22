@@ -46,7 +46,7 @@ else{
 		}
 		
 		// On recupere la ligne
-		$select = 'SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation FROM tracteur WHERE id_tracteur = '. "$id_tracteur" .' '; 
+		$select = 'SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation,defaut FROM tracteur WHERE id_tracteur = '. "$id_tracteur" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -63,6 +63,7 @@ else{
 	$visite=$row['visite'];
 	$revision=$row['entretien'];
 	$observation=$row['observation'];
+	$defaut=$row['defaut'];
 
 	echo "
 		<h2 align=\"center\">/!\ Attention /!\</h2><br>
@@ -98,6 +99,10 @@ else{
 		<tr>
 			<td>Observation : </td>
 			<td>$observation</td>
+		</tr>
+		<tr>
+			<td>Defaut : </td>
+			<td>$defaut</td>
 		</tr>
 		<tr>
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-danger\" type=\"submit\" name=\"supprimer\" value=\"Supprimer\"/></td>

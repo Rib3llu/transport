@@ -11,7 +11,7 @@ connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = 'SELECT * FROM controle';
+$select = 'SELECT * FROM accident WHERE nature = "controle"';
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
@@ -27,15 +27,15 @@ echo '<td><b><u>Remorque</u></b></td>';
 echo '<td><b><u>Description</u></b></td>';
 echo '<td><b><u>Date</u></b></td>';
 echo '<td><b><u>Montant</u></b></td>' ;
+echo '<td><b><u>Type</u></b></td>' ;
 echo '<td><b><u>Modifier</u></b></td>' ;
 echo '<td><b><u>Supprimer</u></b></td>' ;
 echo '</tr>'."\n";
 // lecture et affichage des résultats sur 2 colonnes, 1 résultat par ligne. 
 while($row = mysql_fetch_array($result)) {
 echo '<tr>';
-echo '<td>'.$row["id_controle"].'</td>';
-
-// recuperation des noms, immat,...
+echo '<td>'.$row["id_accident"].'</td>';
+// recuperation immat des id_a
 if ($row["id_tracteur"] != '0')
 {
 	$tracteur = 'SELECT immatriculation FROM tracteur WHERE id_tracteur = '.$row["id_tracteur"].'';
@@ -65,8 +65,9 @@ else{
 echo '<td>'.$row["description"].'</td>';
 echo '<td>'.$row["date"].'</td>';
 echo '<td>'.$row["prix"].' €</td>';
-echo '<td align="center"><form method="post" action="mod_controle.php"><input type="hidden" name="id_accident" value='.$row["id_accident"].' /><input type="image" src="../img/mod.jpg" width="32" height="32" border="0" alt="modifier" name="mod"></form></td>';
-echo '<td align="center"><form method="post" action="supp_controle.php"><input type="hidden" name="id_accident" value='.$row["id_accident"].' /><input type="image" src="../img/supp.png" width="32" height="32" border="0" alt="supprimer" name="del_img"></form></td>';
+echo '<td>'.$row["nature"].'</td>';
+echo '<td align="center"><form method="post" action="mod_reparation.php"><input type="hidden" name="id_accident" value='.$row["id_accident"].' /><input type="image" src="../img/mod.jpg" width="32" height="32" border="0" alt="modifier" name="mod"></form></td>';
+echo '<td align="center"><form method="post" action="supp_reparation.php"><input type="hidden" name="id_accident" value='.$row["id_accident"].' /><input type="image" src="../img/supp.png" width="32" height="32" border="0" alt="supprimer" name="del_img"></form></td>';
 echo '</tr>'."\n";
 }
 echo '</table>'."\n";

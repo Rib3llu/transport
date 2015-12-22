@@ -1,6 +1,5 @@
 <?php
 // fonctions annexes
-
 // comptage des chauffeurs
 function compteChauffeur(){
 	//On se connecte
@@ -77,7 +76,7 @@ function verifCTTracteur(){
 	//On se connecte
 	connectBase();
 	// On selectionne
-	$result = mysql_query('SELECT * FROM tracteur WHERE "controle" < '.$today.'');
+	$result = mysql_query("SELECT * FROM tracteur WHERE visite < '$today'");
 	$num_rows = mysql_num_rows($result);
 	//On envoi le resultat
 	return $num_rows;
@@ -91,7 +90,7 @@ function verifCTRemorque(){
 	//On se connecte
 	connectBase();
 	// On selectionne
-	$result = mysql_query('SELECT * FROM remorque WHERE "controle" < '.$today.'');
+	$result = mysql_query("SELECT * FROM remorque WHERE controle < '$today'");
 	$num_rows = mysql_num_rows($result);
 	//On envoi le resultat
 	return $num_rows;
@@ -107,7 +106,7 @@ function verifRevisionTracteur(){
 	//On se connecte
 	connectBase();
 	// On selectionne
-	$result = mysql_query('SELECT * FROM tracteur WHERE "revision" < '.$today.'');
+	$result = mysql_query("SELECT * FROM tracteur WHERE entretien < '$today'");
 	$num_rows = mysql_num_rows($result);
 	//On envoi le resultat
 	return $num_rows;
@@ -121,7 +120,7 @@ function verifRevisionRemorque(){
 	//On se connecte
 	connectBase();
 	// On selectionne
-	$result = mysql_query('SELECT * FROM remorque WHERE "revision" < '.$today.'');
+	$result = mysql_query("SELECT * FROM remorque WHERE revision < '$today'");
 	$num_rows = mysql_num_rows($result);
 	//On envoi le resultat
 	return $num_rows;
@@ -130,6 +129,20 @@ function verifRevisionRemorque(){
 }
 
 // verifier date permis
+function verifPermis(){
+	
+	// date du jour
+	$today = date("Y-m-d");
+	//On se connecte
+	connectBase();
+	// On selectionne
+	$result = mysql_query("SELECT * FROM chauffeur WHERE expiration < '$today'");
+	$num_rows = mysql_num_rows($result);
+	//On envoi le resultat
+	return $num_rows;
+	// on ferme la connexion
+	mysql_close();
+}
 
 // verifier date fimo
 

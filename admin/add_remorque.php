@@ -18,6 +18,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	$ct=$_POST['ct'];
 	$revision=$_POST['revision'];
 	$obs=$_POST['obs'];
+	$defaut=$_POST['defaut'];
 	$longueur=$_POST['longueur'];
 	$largeur=$_POST['largeur'];
 	$hauteur=$_POST['hauteur'];
@@ -30,7 +31,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'INSERT INTO remorque VALUES("","'.$marque.'","'.$modele.'","'.$immat.'","'.$type.'","'.$date.'","'.$visite.'","'.$entretien.'","'.$obs.'","'.$longueur.'","'.$largeur.'","'.$hauteur.'")';
+	$sql = 'INSERT INTO remorque VALUES("","'.$marque.'","'.$modele.'","'.$immat.'","'.$type.'","'.$date.'","'.$visite.'","'.$entretien.'","'.$obs.'","'.$defaut.'","'.$longueur.'","'.$largeur.'","'.$hauteur.'")';
 	
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -75,7 +76,10 @@ else {
 			<td><input type=\"text\" id=\"datepicker\" name=\"revision\"></td>
 		</tr><tr>
 			<td>Observation : </td>
-			<td><input type=\"text\" name=\"obs\"/></td>
+			<td><textarea name=\"obs\" rows=\"4\" cols=\"30\"></textarea></td>
+		</tr><tr>
+			<td>Defaut : </td>
+			<td><textarea name=\"defaut\" rows=\"5\" cols=\"30\"></textarea></td>
 		</tr><tr>
 			<td>Longueur :	</td>
 			<td><input type=\"text\" name=\"longueur\"/></td>

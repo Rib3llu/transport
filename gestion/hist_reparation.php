@@ -11,7 +11,7 @@ connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = 'SELECT * FROM accident';
+$select = 'SELECT * FROM accident WHERE nature = "panne" OR nature = "accident"';
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
