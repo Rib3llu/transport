@@ -19,6 +19,8 @@ if (isset ($_POST['valider'])){
 	$ct=$_POST['ct'];
 	$revision=$_POST['revision'];
 	$obs=$_POST['obs'];
+	$km=$_POST['km'];
+	$etat=$_POST['etat'];
 
 	$date = date("Y-m-d", strtotime($date));
 	$visite = date("Y-m-d", strtotime($ct));
@@ -27,14 +29,15 @@ if (isset ($_POST['valider'])){
 	$nature="controle";
 	$datect=$_POST['datect'];
 	$prix=$_POST['prix'];
+	$defaut=$_POST['defaut'];
 
 	//On se connecte
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'UPDATE tracteur SET marque="'.$marque.'", modele="'.$mod.'", immatriculation="'.$immat.'", date="'.$date.'", visite="'.$ct.'" , entretien="'.$entretien.'" , observation="'.$obs.'" WHERE id_tracteur="'.$id_tracteur.'"';
+	$sql = 'UPDATE tracteur SET marque="'.$marque.'", km="'.$km.'", etat="'.$etat.'", modele="'.$mod.'", immatriculation="'.$immat.'", date="'.$date.'", visite="'.$ct.'" , entretien="'.$entretien.'" , observation="'.$obs.'" WHERE id_tracteur="'.$id_tracteur.'"';
 	
-	$sql2 = 'INSERT INTO accident VALUES("","'.$id_tracteur.'","","Passage CT","'.$datect.'","'.$prix.'","","","'.$nature.'")';
+	$sql2 = 'INSERT INTO accident VALUES("","'.$id_tracteur.'","","'.$defaut.'","'.$datect.'","'.$prix.'","","","'.$nature.'","'.$km.'")';
 
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -66,7 +69,7 @@ else{
 		}
 		
 		// On recupere la ligne
-		$select = 'SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation FROM tracteur WHERE id_tracteur = '. "$id_tracteur" .' '; 
+		$select = 'SELECT * FROM tracteur WHERE id_tracteur = '. "$id_tracteur" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -83,9 +86,12 @@ else{
 	$visite=$row['visite'];
 	$revision=$row['entretien'];
 	$observation=$row['observation'];
+	$defaut=$row['defaut'];
+	$km=$row['km'];
+	$etat=$row['etat'];
 
 	echo "
-	    <h1 align=\"center\">Modification d'un Tracteur</h1><br>
+	    <h1 align=\"center\">Passage d'un Tracteur</h1><br>
 		<div class=\"col-md-3\"></div>
 			<div class=\"col-md-6\" align=\"center\">
 		<table class=\"table table-striped\">
@@ -106,13 +112,23 @@ else{
 		<tr>
 			<td>Date passage Controle Technique :	</td>
 			<td><input type=\"text\" id=\"datepicker\" name=\"datect\" value=\"$visite\"/></td>
+		</tr>		
+		<tr>
+			<td>Defaut constaté : </td>
+			<td><textarea name=\"defaut\" rows=\"3\" cols=\"30\">$defaut</textarea></td>
 		</tr>
 		<tr>
-			<td>Date prochain Controle Technique :	</td>
+			<td>Kilométrage : </td>
+			<td><input type=\"text\" name=\"km\" value=\"$km\">$km</td>
+		</tr>
+
+		<tr>
+			<td><font color=\"red\">Date prochain Controle Technique :	</font></td>
 			<td><input type=\"text\" id=\"datepicker\" name=\"ct\" /></td>
 		</tr>
 		<input type=\"hidden\" id=\"datepicker\" name=\"revision\" value=\"$revision\">
 		<input type=\"hidden\" name=\"obs\" value=\"$observation\"/>
+		<input type=\"hidden\" name=\"etat\" value=\"$etat\"/>
 		<tr>
 			<td>Tarif :	</font></td>
 			<td><input type=\"text\" name=\"prix\"/></td>

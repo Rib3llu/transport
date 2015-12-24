@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>		
         <br><h1 align="center">Listing des Chauffeurs</h1><br>
@@ -11,7 +12,7 @@ connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = 'SELECT id_chauffeur,nom,prenom,tel,mail,permis,expiration FROM chauffeur';
+$select = 'SELECT * FROM chauffeur';
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
@@ -27,7 +28,10 @@ echo '<td><b><u>Prénom</u></b></td>';
 echo '<td><b><u>Téléphone</u></b></td>';
 echo '<td><b><u>Mail</u></b></td>';
 echo '<td><b><u>N° de Permis</u></b></td>' ;
-echo '<td><b><u>Date d\'expiration</u></b></td>' ;
+echo '<td><b><u>Exp. Permis</u></b></td>' ;
+echo '<td><b><u>Exp. FIMO</u></b></td>' ;
+echo '<td><b><u>Exp. Matiere Dangeureuse</u></b></td>' ;
+echo '<td><b><u>Exp. Produits Petroliers</u></b></td>' ;
 echo '<td><b><u>Modifier</u></b></td>' ;
 echo '<td><b><u>Supprimer</u></b></td>' ;
 echo '</tr>'."\n";
@@ -41,6 +45,9 @@ echo '<td>'.$row["tel"].'</td>';
 echo '<td>'.$row["mail"].'</td>';
 echo '<td>'.$row["permis"].'</td>';
 echo '<td>'.$row["expiration"].'</td>';
+echo '<td>'.$row["fimo"].'</td>';
+echo '<td>'.$row["matiere"].'</td>';
+echo '<td>'.$row["ppetrolier"].'</td>';
 echo '<td align="center"><form method="post" action="mod_chauffeur.php"><input type="hidden" name="id_chauffeur" value='.$row["id_chauffeur"].' /><input type="image" src="../img/mod.jpg" width="32" height="32" border="0" alt="modifier" name="mod"></form></td>';
 echo '<td align="center"><form method="post" action="supp_chauffeur.php"><input type="hidden" name="id_chauffeur" value='.$row["id_chauffeur"].' /><input type="image" src="../img/supp.png" width="32" height="32" border="0" alt="supprimer" name="del_img"></form></td>';
 echo '</tr>'."\n";
@@ -52,10 +59,9 @@ else echo 'Pas d\'enregistrements dans cette table...';
  
 // on libère le résultat
 mysql_free_result($result);
-?>
-       <p><div align="center"><a href="add_chauffeur.php"><img src="../img/plus.jpg" width="32" height="32" border="0"></a></div></p>
-	   <div class="page-header"><a href="../admin.php"><button type="button" class="btn btn-primary">Retour</button></a></div>
-	   </div>
-<?php 
+
+// On ferme la page 
+$piedpage = piedpage_tableau("chauffeur");
+echo $piedpage;
 include "../footer.php"; 
 ?>

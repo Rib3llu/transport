@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
         <br><h1 align="center">Listing des utilisateurs</h1><br>
@@ -61,11 +62,8 @@ else echo 'Pas d\'enregistrements dans cette table...';
 // on libère le résultat
 mysql_free_result($result);
  
-?>
-       <p><div align="center"><a href="add_user.php"><img src="../img/plus.jpg" width="32" height="32" border="0"></a></div></p>
-	   <div class="page-header"><a href="../admin.php"><button type="button" class="btn btn-primary">Retour</button></a></div>
-	   <p><div align="center"><h3></h3></div></p>
-	   </div>
-<?php 
+// On ferme la page 
+$piedpage = piedpage_tableau("user");
+echo $piedpage;
 include "../footer.php"; 
 ?>

@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -25,6 +26,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	$largeur=$_POST['largeur'];
 	$hauteur=$_POST['hauteur'];
 	$defaut=$_POST['defaut'];
+	$etat=$_POST['etat'];
 
 	$date = date("Y-m-d", strtotime($date));
 	$visite = date("Y-m-d", strtotime($ct));
@@ -34,7 +36,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'UPDATE remorque SET marque="'.$marque.'", modele="'.$modele.'", immatriculation="'.$immat.'", type="'.$type.'", date="'.$date.'" , revision="'.$entretien.'", controle="'.$visite.'" , longueur="'.$longueur.'" , largeur="'.$largeur.'" , hauteur="'.$hauteur.'"  , observation="'.$obs.'", defaut="'.$defaut.'" WHERE id_remorque="'.$id_remorque.'"';
+	$sql = 'UPDATE remorque SET marque="'.$marque.'", modele="'.$modele.'", immatriculation="'.$immat.'", type="'.$type.'", date="'.$date.'" , revision="'.$entretien.'", controle="'.$visite.'" , longueur="'.$longueur.'" , largeur="'.$largeur.'" , hauteur="'.$hauteur.'"  , observation="'.$obs.'", defaut="'.$defaut.'", etat="'.$etat.'" WHERE id_remorque="'.$id_remorque.'"';
 	
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -45,10 +47,8 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	mysql_close();
 	
 	// on valide la modif
-	
-	echo "<br><div class=\"alert alert-success\" role=\"alert\">
-        <h3>La remorque à bien &eacutet&eacute modifi&eacute...!</strong></h3>
-      </div>";
+	$msg = aff_modifier("La Remorque");
+	echo $msg;
 
 	// Sinon on affiche le formulaire
 }
@@ -66,7 +66,7 @@ else{
 		}
 		
 		// On recupere la ligne
-		$select = 'SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,defaut,longueur,largeur,hauteur FROM remorque WHERE id_remorque = '. "$id_remorque" .' '; 
+		$select = 'SELECT * FROM remorque WHERE id_remorque = '. "$id_remorque" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -88,6 +88,7 @@ else{
 	$largeur=$row['largeur'];
 	$hauteur=$row['hauteur'];
 	$defaut=$row['defaut'];
+	$etat=$row['etat'];
 
 	echo "
         <h1 align=\"center\">Modification d'une Remorque</h1><br>
@@ -113,15 +114,15 @@ else{
 		</tr>
 		<tr>
 			<td>Date construction :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"date\" value=\"$date\"/></td>
+			<td><input type=\"date\" name=\"date\" value=\"$date\"/></td>
 		</tr>
 		<tr>
 			<td>Date prochain Controle Technique :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"ct\" value=\"$ct\"/></td>
+			<td><input type=\"date\" name=\"ct\" value=\"$ct\"/></td>
 		</tr>
 		<tr>
 			<td>Date prochaine r&eacutevision :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"revision\" value=\"$revision\"></td>
+			<td><input type=\"date\" name=\"revision\" value=\"$revision\"></td>
 		</tr>
 		<tr>
 			<td>Observation : </td>
@@ -144,6 +145,32 @@ else{
 			<td><input type=\"text\" name=\"hauteur\" value=\"$hauteur\"/></td>
 		</tr>
 		<tr>
+			<td>Etat :	</td>
+			<td>
+				<select name=\"etat\">";
+			if ($etat=='0'){
+				echo "
+				<option value=\"0\">Libre</option>
+				<option value=\"1\">Utilisée</option>
+				<option value=\"2\">En panne</option>
+			";}
+			if ($etat=='1'){
+				echo "
+				<option value=\"1\">Utilisée</option>
+				<option value=\"2\">En panne</option>
+				<option value=\"0\">Libre</option>
+			";}
+			if ($etat=='2'){
+				echo "
+				<option value=\"2\">En panne</option>
+				<option value=\"1\">Utilisée</option>
+				<option value=\"0\">Libre</option>
+				";}
+		echo "				
+				</select>
+			</td>		
+		</tr>
+		<tr>
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-success\" type=\"submit\" name=\"valider\" value=\"Valider\"/></td>
 		</tr>
 			<input type=\"hidden\" name=\"id_remorque\" value=\"$id_remorque\">
@@ -153,13 +180,10 @@ else{
 	// on ferme la connexion
 	mysql_close();
 	}
-?>
-	<div class="page-header">
-		<a href="aff_remorques.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+
+	// on ferme la page
+	$ppage = piedpage_formulaire("remorques");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

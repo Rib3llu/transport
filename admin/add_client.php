@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -37,7 +38,8 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 	mysql_close();
 	
 	// on valide la creation
-	echo "<p><h2>Le client à bien &eacutet&eacute cr&eacute&eacute</h2></p>";
+	$msg = aff_creer("Le Client");
+	echo $msg;
 }
 	
 	// sinon on affiche le formulaire
@@ -100,13 +102,9 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 		</table>";
 		}
 	
-?>
-	<div class="page-header">
-		<a href="aff_clients.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+	// on ferme la page
+	$ppage = piedpage_formulaire("clients");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

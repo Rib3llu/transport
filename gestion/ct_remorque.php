@@ -28,6 +28,7 @@ if (isset ($_POST['valider'])){
 	$datect=$_POST['datect'];
 	$prix=$_POST['prix'];
 	$defaut=$_POST['defaut'];
+	$etat=$_POST['etat'];
 
 	$description="Passage CT";
 
@@ -39,7 +40,7 @@ if (isset ($_POST['valider'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion pour le CT
-	$sql = 'UPDATE remorque SET marque="'.$marque.'", modele="'.$modele.'", immatriculation="'.$immat.'", type="'.$type.'", date="'.$date.'" , revision="'.$entretien.'", controle="'.$ct.'" , longueur="'.$longueur.'" , largeur="'.$largeur.'" , hauteur="'.$hauteur.'"  , observation="'.$obs.'", defaut="'.$defaut.'" WHERE id_remorque="'.$id_remorque.'"';
+	$sql = 'UPDATE remorque SET marque="'.$marque.'", modele="'.$modele.'", immatriculation="'.$immat.'", type="'.$type.'", date="'.$date.'" , revision="'.$entretien.'", controle="'.$ct.'" , longueur="'.$longueur.'" , largeur="'.$largeur.'" , hauteur="'.$hauteur.'"  , observation="'.$obs.'", defaut="'.$defaut.'", etat="'.$etat.'" WHERE id_remorque="'.$id_remorque.'"';
 	//On prepare la requete pour le cout de la revision
 	$sql2 = 'INSERT INTO accident VALUES("","","'.$id_remorque.'","'.$defaut.'","'.$datect.'","'.$prix.'","","","'.$nature.'")';
 
@@ -75,7 +76,7 @@ else{
 		}
 		
 		// On recupere la ligne
-		$select = 'SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,longueur,largeur,hauteur,defaut FROM remorque WHERE id_remorque = '. "$id_remorque" .' '; 
+		$select = 'SELECT * FROM remorque WHERE id_remorque = '. "$id_remorque" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -97,6 +98,7 @@ else{
 	$largeur=$row['largeur'];
 	$hauteur=$row['hauteur'];
 	$defaut=$row['defaut'];
+	$etat=$row['etat'];
 
 	echo "
         <h1 align=\"center\">Passage d'une Remorque</h1><br>
@@ -139,6 +141,7 @@ else{
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-success\" type=\"submit\" name=\"valider\" value=\"Valider\"/></td>
 		</tr>			
 			<input type=\"hidden\" name=\"type\" value=\"$type\"/>
+			<input type=\"hidden\" name=\"etat\" value=\"$etat\"/>
 			<input type=\"hidden\" id=\"datepicker\" name=\"date\" value=\"$date\"/>
 			<input type=\"hidden\" id=\"datepicker\" name=\"revision\" value=\"$revision\">
 			<input type=\"hidden\" name=\"obs\" value=\"$obs\"/>

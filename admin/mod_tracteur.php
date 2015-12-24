@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -19,8 +20,11 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	$ct=$_POST['ct'];
 	$revision=$_POST['revision'];
 	$obs=$_POST['obs'];
+	$km=$_POST['km'];
+	$etat=$_POST['etat'];
 	$defaut=$_POST['defaut'];
 
+	//Conversion des dates
 	$date = date("Y-m-d", strtotime($date));
 	$visite = date("Y-m-d", strtotime($ct));
 	$entretien = date("Y-m-d", strtotime($revision));
@@ -29,9 +33,8 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'UPDATE tracteur SET marque="'.$marque.'", modele="'.$mod.'", immatriculation="'.$immat.'", date="'.$date.'", defaut="'.$defaut.'", visite="'.$visite.'" , entretien="'.$entretien.'" , observation="'.$obs.'" WHERE id_tracteur="'.$id_tracteur.'"';
+	$sql = 'UPDATE tracteur SET marque="'.$marque.'", modele="'.$mod.'", km="'.$km.'", etat="'.$etat.'", immatriculation="'.$immat.'", date="'.$date.'", defaut="'.$defaut.'", visite="'.$visite.'" , entretien="'.$entretien.'" , observation="'.$obs.'" WHERE id_tracteur="'.$id_tracteur.'"';
 	
-	 
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
 	(Message qui intègrera les causes d'erreur sql)*/
@@ -40,8 +43,9 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	// on ferme la connexion
 	mysql_close();
 	
-	// on valide la modif
-	echo "<p><h2>Le Tracteur à bien &eacutet&eacute modifi&eacute</h2></p>";
+	// on affiche la reussite de la modif
+	$msg = aff_modifier("Le Tracteur");
+	echo $msg;
 
 	// Sinon on affiche le formulaire
 }
@@ -59,7 +63,7 @@ else{
 		}
 		
 		// On recupere la ligne
-		$select = 'SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation,defaut FROM tracteur WHERE id_tracteur = '. "$id_tracteur" .' '; 
+		$select = 'SELECT * FROM tracteur WHERE id_tracteur = '. "$id_tracteur" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -77,6 +81,8 @@ else{
 	$revision=$row['entretien'];
 	$defaut=$row['defaut'];
 	$obs=$row['observation'];
+	$km=$row['km'];
+	$etat=$row['etat'];
 
 	echo "
 	    <h1 align=\"center\">Modification d'un Tracteur</h1><br>
@@ -98,15 +104,15 @@ else{
 		</tr>
 		<tr>
 			<td>Date construction :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"date\" value=\"$date\"/></td>
+			<td><input type=\"date\" name=\"date\" value=\"$date\"/></td>
 		</tr>
 		<tr>
 			<td>Date prochain Controle Technique :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"ct\" value=\"$visite\"/></td>
+			<td><input type=\"date\" name=\"ct\" value=\"$visite\"/></td>
 		</tr>
 		<tr>
 			<td>Date prochaine r&eacutevision :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"revision\" value=\"$revision\"></td>
+			<td><input type=\"date\" name=\"revision\" value=\"$revision\"></td>
 		</tr>
 		<tr>
 			<td>Observation : </td>
@@ -115,6 +121,36 @@ else{
 		<tr>
 			<td>Defaut : </td>
 			<td><textarea name=\"defaut\" rows=\"3\" cols=\"30\">$defaut</textarea></td>
+		</tr>
+		<tr>
+			<td>Kilométrage : </td>
+			<td><input type=\"text\" name=\"km\" value=\"$km\"/></td>
+		</tr>
+		<tr>
+			<td>Etat :	</td>
+			<td>
+				<select name=\"etat\">";
+			if ($etat=='0'){
+				echo "
+				<option value=\"0\">Libre</option>
+				<option value=\"1\">Utilisée</option>
+				<option value=\"2\">En panne</option>
+			";}
+			if ($etat=='1'){
+				echo "
+				<option value=\"1\">Utilisée</option>
+				<option value=\"2\">En panne</option>
+				<option value=\"0\">Libre</option>
+			";}
+			if ($etat=='2'){
+				echo "
+				<option value=\"2\">En panne</option>
+				<option value=\"1\">Utilisée</option>
+				<option value=\"0\">Libre</option>
+				";}
+		echo "				
+				</select>
+			</td>		
 		</tr>
 		<tr>
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-success\" type=\"submit\" name=\"valider\" value=\"Valider\"/></td>
@@ -126,13 +162,10 @@ else{
 	// on ferme la connexion
 	mysql_close();
 	}
-?>
-	<div class="page-header">
-		<a href="aff_tracteurs.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+	
+	// on ferme la page
+	$ppage = piedpage_formulaire("tracteurs");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

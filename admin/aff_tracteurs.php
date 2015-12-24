@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<br><h1 align="center">Listing des Tracteurs</h1><br>
@@ -11,7 +12,7 @@ connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = 'SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation,defaut FROM tracteur';
+$select = 'SELECT * FROM tracteur';
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
@@ -30,6 +31,8 @@ echo '<td><b><u>C.T</u></b></td>' ;
 echo '<td><b><u>Révision</u></b></td>' ;
 echo '<td><b><u>Observation</u></b></td>' ;
 echo '<td><b><u>Defaut</u></b></td>' ;
+echo '<td><b><u>Kilométrage</u></b></td>' ;
+echo '<td><b><u>Etat</u></b></td>' ;
 echo '<td><b><u>Modifier</u></b></td>' ;
 echo '<td><b><u>Supprimer</u></b></td>' ;
 echo '</tr>'."\n";
@@ -45,6 +48,21 @@ echo '<td>'.$row["visite"].'</td>';
 echo '<td>'.$row["entretien"].'</td>';
 echo '<td>'.$row["observation"].'</td>';
 echo '<td>'.$row["defaut"].'</td>';
+echo '<td>'.$row["km"].'</td>';
+echo '<td>';
+if ($row["etat"]== '0') 
+	{ 
+	echo 'Libre';
+	}
+if ($row["etat"]== '1') 
+	{ 
+	echo 'Utilisé';
+	}
+if ($row["etat"]== '2') 
+	{ 
+	echo 'En panne';
+	}
+echo '</td>';
 echo '<td align="center"><form method="post" action="mod_tracteur.php"><input type="hidden" name="id_tracteur" value='.$row["id_tracteur"].' /><input type="image" src="../img/mod.jpg" width="32" height="32" border="0" alt="modifier" name="mod"></form></td>';
 echo '<td align="center"><form method="post" action="supp_tracteur.php"><input type="hidden" name="id_tracteur" value='.$row["id_tracteur"].' /><input type="image" src="../img/supp.png" width="32" height="32" border="0" alt="supprimer" name="del_img"></form></td>';
 echo '</tr>'."\n";
@@ -57,10 +75,8 @@ else echo 'Pas d\'enregistrements dans cette table...';
 // on libère le résultat
 mysql_free_result($result);
  
-?>
-       <p><div align="center"><a href="add_tracteur.php"><img src="../img/plus.jpg" width="32" height="32" border="0"></a></div></p>
-	   <div class="page-header"><a href="../admin.php"><button type="button" class="btn btn-primary">Retour</button></a></div>
-	   </div>
-<?php 
+// On ferme la page 
+$piedpage = piedpage_tableau("tracteur");
+echo $piedpage;
 include "../footer.php"; 
 ?>

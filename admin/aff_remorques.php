@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
         <br><h1 align="center">Listing des Remorques</h1><br>
@@ -11,7 +12,7 @@ connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = 'SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,defaut,longueur,largeur,hauteur FROM remorque';
+$select = 'SELECT * FROM remorque';
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
@@ -34,6 +35,7 @@ echo '<td><b><u>Defaut</u></b></td>' ;
 echo '<td><b><u>Longueur</u></b></td>' ;
 echo '<td><b><u>Largeur</u></b></td>' ;
 echo '<td><b><u>Hauteur</u></b></td>' ;
+echo '<td><b><u>Etat</u></b></td>' ;
 echo '<td><b><u>Modifier</u></b></td>' ;
 echo '<td><b><u>Supprimer</u></b></td>' ;
 echo '</tr>'."\n";
@@ -53,6 +55,20 @@ echo '<td>'.$row["defaut"].'</td>';
 echo '<td>'.$row["longueur"].'</td>';
 echo '<td>'.$row["largeur"].'</td>';
 echo '<td>'.$row["hauteur"].'</td>';
+echo '<td>';
+if ($row["etat"]== '0') 
+	{ 
+	echo 'Libre';
+	}
+if ($row["etat"]== '1') 
+	{ 
+	echo 'Utilisé';
+	}
+if ($row["etat"]== '2') 
+	{ 
+	echo 'En panne';
+	}
+echo '</td>';
 echo '<td align="center"><form method="post" action="mod_remorque.php"><input type="hidden" name="id_remorque" value='.$row["id_remorque"].' /><input type="image" src="../img/mod.jpg" width="32" height="32" border="0" alt="modifier" name="mod"></form></td>';
 echo '<td align="center"><form method="post" action="supp_remorque.php"><input type="hidden" name="id_remorque" value='.$row["id_remorque"].' /><input type="image" src="../img/supp.png" width="32" height="32" border="0" alt="supprimer" name="del_img"></form></td>';
 echo '</tr>'."\n";
@@ -65,10 +81,8 @@ else echo 'Pas d\'enregistrements dans cette table...';
 // on libère le résultat
 mysql_free_result($result);
  
-?>
-       <p><div align="center"><a href="add_remorque.php"><img src="../img/plus.jpg" width="32" height="32" border="0"></a></div></p>
-	   <div class="page-header"><a href="../admin.php"><button type="button" class="btn btn-primary">Retour</button></a></div>
-	   </div>
-<?php 
+// On ferme la page 
+$piedpage = piedpage_tableau("remorque");
+echo $piedpage;
 include "../footer.php"; 
 ?>

@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
         <h1 align="center">Listing des Produits</h1>
@@ -49,10 +50,8 @@ else echo 'Pas d\'enregistrements dans cette table...';
 // on libère le résultat
 mysql_free_result($result);
  
-?>
-       <p><div align="center"><a href="add_produit.php"><img src="../img/plus.jpg" width="32" height="32" border="0"></a></div></p>
-	   <div class="page-header"><a href="../admin.php"><button type="button" class="btn btn-primary">Retour</button></a></div>
-	   </div>
-<?php 
+// On ferme la page 
+$piedpage = piedpage_tableau("produit");
+echo $piedpage;
 include "../footer.php"; 
 ?>

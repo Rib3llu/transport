@@ -2,9 +2,10 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
-	<div class="container">
+<div class="container">
      <div class="row">
 <?php
 // Si le formulaire est rempli
@@ -27,8 +28,9 @@ if (isset ($_POST['supprimer'])){
 	// on ferme la connexion
 	mysql_close();
 	
-	// on valide la modif
-	echo "<p><h2>Le Tracteur à bien &eacutet&eacute supprim&eacute</h2></p>";
+	// on affiche la reussite de la suppression
+	$msg = aff_supprimer("Le Tracteur");
+	echo $msg;
 
 	// Sinon on affiche le formulaire
 }
@@ -46,7 +48,7 @@ else{
 		}
 		
 		// On recupere la ligne
-		$select = 'SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation,defaut FROM tracteur WHERE id_tracteur = '. "$id_tracteur" .' '; 
+		$select = 'SELECT * FROM tracteur WHERE id_tracteur = '. "$id_tracteur" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -64,6 +66,8 @@ else{
 	$revision=$row['entretien'];
 	$observation=$row['observation'];
 	$defaut=$row['defaut'];
+	$km=$row['km'];
+	$etat=$row['etat'];
 
 	echo "
 		<h2 align=\"center\">/!\ Attention /!\</h2><br>
@@ -105,6 +109,10 @@ else{
 			<td>$defaut</td>
 		</tr>
 		<tr>
+			<td>Kilométrage : </td>
+			<td>$km</td>
+		</tr>
+		<tr>
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-danger\" type=\"submit\" name=\"supprimer\" value=\"Supprimer\"/></td>
 		</tr>
 			<input type=\"hidden\" name=\"id_tracteur\" value=\"$id_tracteur\">
@@ -114,13 +122,10 @@ else{
 	// on ferme la connexion
 	mysql_close();
 	}
-?>
-	<div class="page-header">
-		<a href="aff_tracteurs.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+
+	// on ferme la page
+	$ppage = piedpage_formulaire("tracteurs");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

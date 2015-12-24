@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -26,8 +27,10 @@ if (isset ($_POST['supprimer'])){
 	// on ferme la connexion
 	mysql_close();
 		
-	// on valide la creation
-	echo "<p><h2>Le chauffeur à bien &eacutet&eacute supprim&eacute</h2></p>";
+	// on affiche la reussite de la suppression
+	$msg = aff_supprimer("Le Chauffeur");
+	echo $msg;
+
 }
 	
 	// sinon on affiche le formulaire avec les donnees pre-remplis
@@ -40,7 +43,7 @@ if (isset ($_POST['supprimer'])){
 		$id_chauffeur = $_POST['id_chauffeur'];
 		
 		// On recupere la ligne
-		$select = 'SELECT id_chauffeur,nom,prenom,tel,mail,permis,expiration FROM chauffeur WHERE id_chauffeur = '. "$id_chauffeur" .' '; 
+		$select = 'SELECT * FROM chauffeur WHERE id_chauffeur = '. "$id_chauffeur" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -55,7 +58,10 @@ if (isset ($_POST['supprimer'])){
 		$mail = $row["mail"];
 		$permis = $row["permis"];
 		$expiration = $row["expiration"];
-		
+		$fimo=$row['fimo'];
+		$matiere=$row['matiere'];
+		$ppetrolier=$row['ppetrolier'];
+
 		echo "
 		<h2 align=\"center\">/!\ Attention /!\</h2><br>
 		<h4 align=\"center\">Etes-vous sur de vouloir supprimer l'enregistrement suivant ?</h4><br>
@@ -87,6 +93,19 @@ if (isset ($_POST['supprimer'])){
 			<td>Date d'expiration :	</td>
 			<td>$expiration</td>
 		</tr>
+		<tr>
+			<td>Date Fimo :	</td>
+			<td>$fimo</td>
+		</tr>
+		<tr>
+			<td>Date matière dangeureuse :	</td>
+			<td>$matiere</td>
+		</tr>
+		<tr>
+			<td>Date produits pétroliers :	</td>
+			<td>$ppetrolier</td>
+		</tr>
+
 		<input type=\"hidden\" name=\"id_chauffeur\" value=\"$id_chauffeur\">	
 		<tr>
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-danger\" type=\"submit\" name=\"supprimer\" value=\"Supprimer\"/></td>
@@ -97,13 +116,10 @@ if (isset ($_POST['supprimer'])){
 	// on ferme la connexion
 	mysql_close();
 	}
-?>
-	<div class="page-header">
-		<a href="aff_chauffeurs.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+
+		// on ferme la page
+	$ppage = piedpage_formulaire("chauffeurs");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -22,6 +23,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	$longueur=$_POST['longueur'];
 	$largeur=$_POST['largeur'];
 	$hauteur=$_POST['hauteur'];
+	$etat=$_POST['etat'];
 
 	$date = date("Y-m-d", strtotime($date));
 	$visite = date("Y-m-d", strtotime($ct));
@@ -31,7 +33,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'INSERT INTO remorque VALUES("","'.$marque.'","'.$modele.'","'.$immat.'","'.$type.'","'.$date.'","'.$visite.'","'.$entretien.'","'.$obs.'","'.$defaut.'","'.$longueur.'","'.$largeur.'","'.$hauteur.'")';
+	$sql = 'INSERT INTO remorque VALUES("","'.$marque.'","'.$modele.'","'.$immat.'","'.$type.'","'.$date.'","'.$visite.'","'.$entretien.'","'.$obs.'","'.$defaut.'","'.$longueur.'","'.$largeur.'","'.$hauteur.'","'.$etat.'")';
 	
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -42,7 +44,8 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	mysql_close();
 	
 	// on valide la creation
-	echo "<p><h2>La remorque à bien &eacutet&eacute cr&eacute&eacute</h2></p>";
+	$msg = aff_creer("La Remorque");
+	echo $msg;
 }
 
 // Sinon on affiche le formulaire
@@ -58,7 +61,7 @@ else {
 			<td><input type=\"text\" name=\"marque\"/></td>
 		</tr><tr>
 			<td>Mod&egravele :	</td>
-			<td><input type=\"text\" name=\"mod\"/></td>
+			<td><input type=\"text\" name=\"modele\"/></td>
 		</tr><tr>
 			<td>Immatriculation : </td>
 			<td><input type=\"text\" name=\"immat\"/></td>
@@ -67,13 +70,13 @@ else {
 			<td><input type=\"text\" name=\"type\"/></td>
 		</tr><tr>
 			<td>Date construction :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"date\"/></td>
+			<td><input type=\"date\" name=\"date\"/></td>
 		</tr><tr>
 			<td>Date prochain Controle Technique :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"ct\"/></td>
+			<td><input type=\"date\" name=\"ct\"/></td>
 		</tr><tr>
 			<td>Date prochaine r&eacutevision :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"revision\"></td>
+			<td><input type=\"date\" name=\"revision\"></td>
 		</tr><tr>
 			<td>Observation : </td>
 			<td><textarea name=\"obs\" rows=\"4\" cols=\"30\"></textarea></td>
@@ -91,18 +94,25 @@ else {
 			<td>Hauteur :	</td>
 			<td><input type=\"text\" name=\"hauteur\"/></td>
 		</tr>
+		<tr>
+			<td>Etat :	</td>
+			<td>
+				<select name=\"etat\">
+				<option value=\"0\">Libre</option>
+				<option value=\"1\">Utilisée</option>
+				<option value=\"2\">En panne</option>
+				</select>
+			</td>
+		</tr>
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-success\" type=\"submit\" name=\"valider\" value=\"Valider\"/></td>
         </form>
 		</table>
 	";
 }
-?>
-	<div class="page-header">
-		<a href="aff_remorques.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+
+	// on ferme la page
+	$ppage = piedpage_formulaire("remorques");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

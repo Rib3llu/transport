@@ -13,15 +13,14 @@ include "../header.php";
 			</div>
 		</h4>
 <?php
-//date du jour
-$today = date("Y-m-d");
-
+//date du jour - 1 mois
+$date  = date("Y-m-d", strtotime("+1 month"));
 //On se connecte a la base
 connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = "SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation FROM tracteur WHERE visite < '$today'";
+$select = "SELECT * FROM tracteur WHERE visite < '$date' AND visite != '0000-00-00'";
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
@@ -40,6 +39,8 @@ echo '<td>'.$row["date"].'</td>';
 echo '<td><font color="red">'.$row["visite"].'</font></td>';
 echo '<td>'.$row["entretien"].'</td>';
 echo '<td>'.$row["observation"].'</td>';
+echo '<td>'.$row["km"].'</td>';
+echo '<td>'.$row["etat"].'</td>';
 echo '<td><a href="ct_tracteur.php?id_tracteur='.$row["id_tracteur"].'"><button type="button" class="btn btn-default">Passer</button></a></td>';
 echo '</tr>'."\n";
 }
@@ -64,7 +65,7 @@ connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = "SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,longueur,largeur,hauteur FROM remorque WHERE controle < '$today'";
+$select = "SELECT * FROM remorque WHERE `controle` < '$date' AND `controle` != '0000-00-00'";
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
@@ -87,6 +88,7 @@ echo '<td>'.$row["observation"].'</td>';
 echo '<td>'.$row["longueur"].'</td>';
 echo '<td>'.$row["largeur"].'</td>';
 echo '<td>'.$row["hauteur"].'</td>';
+echo '<td>'.$row["etat"].'</td>';
 echo '<td><a href="ct_remorque.php?id_remorque='.$row["id_remorque"].'"><button type="button" class="btn btn-default">Passer</button></a></td>';
 echo '</tr>'."\n";
 }

@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -27,11 +28,9 @@ if (isset ($_POST['supprimer'])){
 	// on ferme la connexion
 	mysql_close();
 	
-	// on valide la modif
-	
-	echo "<br><div class=\"alert alert-success\" role=\"alert\">
-        <h3>La remorque à bien &eacutet&eacute supprim&eacute...!</strong></h3>
-      </div>";
+	// on affiche la reussite de la suppression
+	$msg = aff_supprimer("La Remorque");
+	echo $msg;
 
 	// Sinon on affiche le formulaire
 }
@@ -49,7 +48,7 @@ else{
 		}
 		
 		// On recupere la ligne
-		$select = 'SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,defaut,longueur,largeur,hauteur FROM remorque WHERE id_remorque = '. "$id_remorque" .' '; 
+		$select = 'SELECT * FROM remorque WHERE id_remorque = '. "$id_remorque" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -111,10 +110,6 @@ else{
 			<td>$obs</td>
 		</tr>
 		<tr>
-			<td>Defaut : </td>
-			<td>$defaut</td>
-		</tr>
-		<tr>
 			<td>Longueur :	</td>
 			<td>$longueur</td>
 		</tr>
@@ -136,13 +131,10 @@ else{
 	// on ferme la connexion
 	mysql_close();
 	}
-?>
-	<div class="page-header">
-		<a href="aff_remorques.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+
+	// on ferme la page
+	$ppage = piedpage_formulaire("remorques");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

@@ -13,15 +13,15 @@ include "../header.php";
 			</div>
 		</h4>
 <?php
-//date du jour
-$today = date("Y-m-d");
+//date du jour - 1 mois
+$date  = date("Y-m-d", strtotime("+1 month"));
 
 //On se connecte a la base
 connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = "SELECT id_tracteur,marque,modele,immatriculation,date,visite,entretien,observation FROM tracteur WHERE entretien < '$today'";
+$select = "SELECT * FROM tracteur WHERE entretien < '$date' AND entretien != '0000-00-00'";
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
@@ -38,9 +38,11 @@ echo '<td>'.$row["modele"].'</td>';
 echo '<td>'.$row["immatriculation"].'</td>';
 echo '<td>'.$row["date"].'</td>';
 echo '<td>'.$row["visite"].'</td>';
-echo '<td>'.$row["entretien"].'</td>';
+echo '<td><font color="red">'.$row["entretien"].'</font></td>';
 echo '<td>'.$row["observation"].'</td>';
-echo '<td><a href="mod_tracteur.php?id_tracteur='.$row["id_tracteur"].'"><button type="button" class="btn btn-default">Afficher</button></a></td>';
+echo '<td>'.$row["km"].'</td>';
+echo '<td>'.$row["etat"].'</td>';
+echo '<td><a href="rev_tracteur.php?id_tracteur='.$row["id_tracteur"].'"><button type="button" class="btn btn-default">Passer</button></a></td>';
 echo '</tr>'."\n";
 }
 echo '</table>'."\n";
@@ -64,7 +66,7 @@ connectBase();
 	 
 // requête SQL qui compte le nombre total d'enregistrement dans la table et qui
 //récupère tous les enregistrements
-$select = "SELECT id_remorque,marque,modele,immatriculation,type,date,controle,revision,observation,longueur,largeur,hauteur FROM remorque WHERE revision < '$today'";
+$select = "SELECT * FROM remorque WHERE revision < '$date' AND revision != '0000-00-00'";
 $result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 $total = mysql_num_rows($result);
  
@@ -82,12 +84,13 @@ echo '<td>'.$row["immatriculation"].'</td>';
 echo '<td>'.$row["type"].'</td>';
 echo '<td>'.$row["date"].'</td>';
 echo '<td>'.$row["controle"].'</td>';
-echo '<td>'.$row["revision"].'</td>';
+echo '<td><font color="red">'.$row["revision"].'</font></td>';
 echo '<td>'.$row["observation"].'</td>';
 echo '<td>'.$row["longueur"].'</td>';
 echo '<td>'.$row["largeur"].'</td>';
 echo '<td>'.$row["hauteur"].'</td>';
-echo '<td><a href="mod_remorque.php?id_remorque='.$row["id_remorque"].'"><button type="button" class="btn btn-default">Afficher</button></a></td>';
+echo '<td>'.$row["etat"].'</td>';
+echo '<td><a href="rev_remorque.php?id_remorque='.$row["id_remorque"].'"><button type="button" class="btn btn-default">Passer</button></a></td>';
 echo '</tr>'."\n";
 }
 echo '</table>'."\n";

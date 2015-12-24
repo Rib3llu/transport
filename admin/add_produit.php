@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -30,8 +31,8 @@ if (isset ($_POST['valider']) && !empty($_POST['p_vente'])){
 	mysql_close();
 	
 	// on valide la creation
-	echo "<p><h2>Le produit à bien &eacutet&eacute cr&eacute&eacute</h2></p>";
-
+	$msg = aff_creer("Le Produit");
+	echo $msg;
 }
 	// sinon on affiche le formulaire
 	else {
@@ -64,13 +65,10 @@ if (isset ($_POST['valider']) && !empty($_POST['p_vente'])){
         </form>
 		</table>";
 	}
-?>
-	<div class="page-header">
-		<a href="aff_produits.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+	
+	// on ferme la page
+	$ppage = piedpage_formulaire("produits");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

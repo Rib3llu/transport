@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -18,7 +19,10 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	$revision=$_POST['revision'];
 	$defaut=$_POST['defaut'];
 	$obs=$_POST['obs'];
+	$km=$_POST['km'];
+	$etat=$_POST['etat'];
 
+	// Conversion des dates
 	$date = date("Y-m-d", strtotime($date));
 	$visite = date("Y-m-d", strtotime($ct));
 	$entretien = date("Y-m-d", strtotime($revision));
@@ -27,7 +31,7 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'INSERT INTO tracteur VALUES("","'.$marque.'","'.$mod.'","'.$immat.'","'.$date.'","'.$visite.'","'.$entretien.'","'.$obs.'","'.$defaut.'")';
+	$sql = 'INSERT INTO tracteur VALUES("","'.$marque.'","'.$mod.'","'.$immat.'","'.$date.'","'.$visite.'","'.$entretien.'","'.$obs.'","'.$defaut.'","'.$km.'","'.$etat.'")';
 	 
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -38,7 +42,8 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 	mysql_close();
 	
 	// on valide la creation
-	echo "<p><h2>Le tracteur à bien &eacutet&eacute cr&eacute&eacute</h2></p>";
+	$msg = aff_creer("Le Tracteur");
+	echo $msg;
 }
 	
 	// Sinon on affiche le formulaire
@@ -64,15 +69,15 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 		</tr>
 		<tr>
 			<td>Date construction :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"date\"/></td>
+			<td><input type=\"date\" name=\"date\"/></td>
 		</tr>
 		<tr>
 			<td>Date prochain Controle Technique :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"ct\"/></td>
+			<td><input type=\"date\" name=\"ct\"/></td>
 		</tr>
 		<tr>
 			<td>Date prochaine r&eacutevision :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"revision\"></td>
+			<td><input type=\"date\" name=\"revision\"></td>
 		</tr>
 		<tr>
 			<td>Observation : </td>
@@ -81,20 +86,31 @@ if (isset ($_POST['valider']) && !empty($_POST['immat'])){
 		<tr>
 			<td>Defaut : </td>
 			<td><textarea name=\"defaut\" rows=\"5\" cols=\"30\"></textarea></td>
+		</tr>	
+		<tr>
+			<td>Kilométrage : </td>
+			<td><input type=\"text\" name=\"km\"/></td>
 		</tr>		
+		<tr>
+			<td>Etat :	</td>
+			<td>
+				<select name=\"etat\">
+				<option value=\"0\">Libre</option>
+				<option value=\"1\">Utilisée</option>
+				<option value=\"2\">En panne</option>
+				</select>
+			</td>
+		</tr>
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-success\" type=\"submit\" name=\"valider\" value=\"Valider\"/></td>
 		
         </form>
 		</table>
 		";
 	}
-?>
-	<div class="page-header">
-		<a href="aff_tracteurs.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+
+	// on ferme la page
+	$ppage = piedpage_formulaire("tracteurs");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

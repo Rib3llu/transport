@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -26,8 +27,9 @@ if (isset ($_POST['supprimer'])){
 	// on ferme la connexion
 	mysql_close();
 	
-	// on valide la modification
-	echo "<p><h2>Le produit à bien &eacutet&eacute supprim&eacute</h2></p>";
+	// on affiche la reussite de la suppression
+	$msg = aff_supprimer("Le Produit");
+	echo $msg;
 
 	}
 	
@@ -88,13 +90,10 @@ if (isset ($_POST['supprimer'])){
 	// on ferme la connexion
 	mysql_close();
 	}
-?>
-	<div class="page-header">
-		<a href="aff_produits.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+
+		// on ferme la page
+	$ppage = piedpage_formulaire("produits");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

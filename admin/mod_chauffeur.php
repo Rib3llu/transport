@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -18,12 +19,15 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 	$mail=$_POST['mail'];
 	$date=$_POST['date'];
 	$date_exp = date("Y-m-d", strtotime($date));
-	
+	$fimo=$_POST['fimo'];
+	$matiere=$_POST['matiere'];
+	$ppetrolier=$_POST['ppetrolier'];
+
 	//On se connecte
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'UPDATE chauffeur SET nom="'.$nom.'", prenom="'.$prenom.'", tel="'.$tel.'", mail="'.$mail.'", permis="'.$permis.'", expiration="'.$date_exp.'" WHERE id_chauffeur="'.$id_chauffeur.'"'; 
+	$sql = 'UPDATE chauffeur SET nom="'.$nom.'", prenom="'.$prenom.'", tel="'.$tel.'", mail="'.$mail.'", permis="'.$permis.'", expiration="'.$date_exp.'", fimo="'.$fimo.'", matiere="'.$matiere.'", ppetrolier="'.$ppetrolier.'" WHERE id_chauffeur="'.$id_chauffeur.'"'; 
 	 
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -33,8 +37,9 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 	// on ferme la connexion
 	mysql_close();
 		
-	// on valide la creation
-	echo "<p><h2>Le chauffeur à bien &eacutet&eacute modifi&eacute</h2></p>";
+	// on valide la modif
+	$msg = aff_modifier("Le Chauffeur");
+	echo $msg;
 }
 	
 	// sinon on affiche le formulaire avec les donnees pre-remplis
@@ -47,7 +52,7 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 		$id_chauffeur = $_POST['id_chauffeur'];
 		
 		// On recupere la ligne
-		$select = 'SELECT id_chauffeur,nom,prenom,tel,mail,permis,expiration FROM chauffeur WHERE id_chauffeur = '. "$id_chauffeur" .' '; 
+		$select = 'SELECT * FROM chauffeur WHERE id_chauffeur = '. "$id_chauffeur" .' '; 
 	 
 		$result = mysql_query($select) or die ('Erreur : '.mysql_error() );
 		$total = mysql_num_rows($result);
@@ -62,7 +67,10 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 		$mail = $row["mail"];
 		$permis = $row["permis"];
 		$expiration = $row["expiration"];
-		
+		$fimo=$row['fimo'];
+		$matiere=$row['matiere'];
+		$ppetrolier=$row['ppetrolier'];
+
 		echo "
 		<h1 align=\"center\">Modification d'un Chauffeur</h1><br>
 		<div class=\"col-md-3\"></div>
@@ -74,7 +82,7 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 			<td><input type=\"text\" name=\"nom\" value=\"$nom\"></td>
 		</tr>
 		<tr>
-			<td>Prenom :	</td>
+			<td>Prénom :	</td>
 			<td><input type=\"text\" name=\"prenom\" value=\"$prenom\"></td>
 		</tr>
 		<tr>
@@ -91,7 +99,19 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 		</tr>
 		<tr>
 			<td>Date d'expiration :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"date\" value=\"$expiration\"></td>
+			<td><input type=\"date\" name=\"date\" value=\"$expiration\"></td>
+		</tr>
+		<tr>
+			<td>Date Fimo :	</td>
+			<td><input type=\"date\" name=\"fimo\" value=\"$fimo\"></td>
+		</tr>
+		<tr>
+			<td>Date matière dangeureuse :	</td>
+			<td><input type=\"date\" name=\"matiere\" value=\"$matiere\"></td>
+		</tr>
+		<tr>
+			<td>Date produits pétroliers :	</td>
+			<td><input type=\"date\" name=\"ppetrolier\" value=\"$ppetrolier\"></td>
 		</tr>
 		<input type=\"hidden\" name=\"id_chauffeur\" value=\"$id_chauffeur\">	
 		<tr>
@@ -103,13 +123,10 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 	// on ferme la connexion
 	mysql_close();
 	}
-?>
-	<div class="page-header">
-		<a href="aff_chauffeurs.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+
+	// on ferme la page
+	$ppage = piedpage_formulaire("chauffeurs");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

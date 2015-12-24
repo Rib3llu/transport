@@ -5,18 +5,63 @@ include "fonctions_annexe.php";
 include "header.php";
 ?>
     <div class="container">
-      <div>
-		<h2>Administration du Parc</h2>
-		<li><a href="admin/aff_tracteurs.php">Lister les Tracteurs</a><br>
-		<li><a href="admin/aff_remorques.php">Lister les Remorques</a><br>
-		<h2>Administration des Chauffeurs</h2>
-		<li><a href="admin/aff_chauffeurs.php">Lister les Chauffeurs</a><br>
-		<h2>Administratif Général</h2>
-		<li><a href="admin/aff_user.php">Lister les Utilisateurs</a><br>
-		<li><a href="admin/aff_clients.php">Lister les Clients</a><br>
-		<li><a href="admin/aff_produits.php">Lister les Produits</a><br>
-		<br>
-      </div>
+		<br><br>
+      <div class="row">
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 align="center" class="panel-title"><b>Administration du Parc</h3>
+            </div>
+            <div class="panel-body">
+				<li><a href="admin/aff_tracteurs.php" type="button" class="btn btn-default">Lister les Tracteurs</button></a><br><br>
+				<li><a href="admin/aff_remorques.php" type="button" class="btn btn-default">Lister les Remorques</button></a><br>
+			</div>
+			</div>
+		</div>
+		
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 align="center" class="panel-title"><b>Administration des Chauffeurs</h3>
+            </div>
+            <div class="panel-body">
+				<li><a href="admin/aff_chauffeurs.php" type="button" class="btn btn-default">Lister les Chauffeurs</button></a><br>
+			</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 align="center" class="panel-title"><b>Administration Commerciale</h3>
+            </div>
+            <div class="panel-body">
+				<li><a href="admin/aff_clients.php" type="button" class="btn btn-default">Lister les Clients</button></a><br><br>
+				<li><a href="admin/aff_produits.php" type="button" class="btn btn-default">Lister les Produits</button></a><br>
+			</div>
+			</div>
+		</div>
+	</div>
+
+	<br><br>
+	
+    <div class="row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 align="center" class="panel-title"><b>Administration Logiciel</h3>
+            </div>
+            <div class="panel-body">
+				<li><a href="admin/aff_user.php" type="button" class="btn btn-default">Lister les Utilisateurs</button></a><br>
+			</div>
+			</div>
+		</div>
+		<div class="col-sm-4"></div>
+    </div>
+
+
+	</div>
     </div>
 <?php 
 include "footer.php"; 

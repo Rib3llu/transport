@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -20,7 +21,7 @@ if (isset ($_POST['valider']) && !empty($_POST['mail'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'INSERT INTO utilisateur VALUES("","'.$mail.'","'.$password.'","'.$nom.'","'.$prenom.'","'.$droit.'","")';
+	$sql = 'INSERT INTO utilisateur VALUES("","'.$mail.'","'.$password.'","'.$nom.'","'.$prenom.'","'.$droit.'","","")';
 	 
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -31,7 +32,8 @@ if (isset ($_POST['valider']) && !empty($_POST['mail'])){
 	mysql_close();
 	
 	// on valide la creation
-	echo "<p><h2>L'utilisateur à bien &eacutet&eacute cr&eacute&eacute</h2></p>";
+	$msg = aff_creer("Le compte");
+	echo $msg;
 
 	// Sinon on affiche le formulaire
 }
@@ -72,13 +74,9 @@ else{
 				</table>
 		";
 	}
-?>
-	<div class="page-header">
-		<a href="aff_user.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+	// on ferme la page
+	$ppage = piedpage_formulaire("user");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>

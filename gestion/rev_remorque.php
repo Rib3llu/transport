@@ -28,8 +28,7 @@ if (isset ($_POST['valider'])){
 	$datect=$_POST['datect'];
 	$prix=$_POST['prix'];
 	$defaut=$_POST['defaut'];
-
-	$description="Passage CT";
+	$listrevision=$_POST['listrevision'];
 
 	$date = date("Y-m-d", strtotime($date));
 	$visite = date("Y-m-d", strtotime($ct));
@@ -41,7 +40,7 @@ if (isset ($_POST['valider'])){
 	//On prépare la commande sql d'insertion pour le CT
 	$sql = 'UPDATE remorque SET marque="'.$marque.'", modele="'.$modele.'", immatriculation="'.$immat.'", type="'.$type.'", date="'.$date.'" , revision="'.$entretien.'", controle="'.$ct.'" , longueur="'.$longueur.'" , largeur="'.$largeur.'" , hauteur="'.$hauteur.'"  , observation="'.$obs.'", defaut="'.$defaut.'" WHERE id_remorque="'.$id_remorque.'"';
 	//On prepare la requete pour le cout de la revision
-	$sql2 = 'INSERT INTO accident VALUES("","","'.$id_remorque.'","'.$defaut.'","'.$datect.'","'.$prix.'","","","'.$nature.'")';
+	$sql2 = 'INSERT INTO accident VALUES("","","'.$id_remorque.'","'.$listrevision.'","'.$datect.'","'.$prix.'","","","'.$nature.'")';
 
 	
 	/*on lance la commande (mysql_query) et au cas où, 
@@ -56,7 +55,7 @@ if (isset ($_POST['valider'])){
 	// on valide la modif
 	
 	echo "<br><div class=\"alert alert-success\" role=\"alert\">
-        <h3>Le controle technique à bien &eacutet&eacute enregistr&eacute...!</strong></h3>
+        <h3>La r&eacutevision à bien &eacutet&eacute enregistr&eacute...!</strong></h3>
       </div>";
 
 	// Sinon on affiche le formulaire
@@ -99,7 +98,7 @@ else{
 	$defaut=$row['defaut'];
 
 	echo "
-        <h1 align=\"center\">Passage d'une Remorque</h1><br>
+        <h1 align=\"center\">R&eacutevision d'une Remorque</h1><br>
 		<div class=\"col-md-3\"></div>
 			<div class=\"col-md-6\" align=\"center\">
 		<table class=\"table table-striped\">
@@ -121,15 +120,15 @@ else{
 		</tr>
 		<tr>
 			<td>Date Revision :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"datect\" value=\"$ct\"/></td>
+			<td><input type=\"text\" id=\"datepicker\" name=\"datect\" value=\"$revision\"/></td>
 		</tr>
 		<tr>
-			<td>Defaut constaté : </td>
-			<td><textarea name=\"defaut\" rows=\"3\" cols=\"30\">$defaut</textarea></td>
+			<td>R&eacuteparation effectu&eacute : </td>
+			<td><textarea name=\"listrevision\" rows=\"3\" cols=\"30\"></textarea></td>
 		</tr>
 		<tr>
 			<td><font color=\"red\">Date prochaine revision :	</font></td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"ct\"/></td>
+			<td><input type=\"text\" id=\"datepicker\" name=\"revision\"/></td>
 		</tr>
 		<tr>
 			<td>Tarif :	</font></td>
@@ -140,7 +139,8 @@ else{
 		</tr>			
 			<input type=\"hidden\" name=\"type\" value=\"$type\"/>
 			<input type=\"hidden\" id=\"datepicker\" name=\"date\" value=\"$date\"/>
-			<input type=\"hidden\" id=\"datepicker\" name=\"revision\" value=\"$revision\">
+			<input type=\"hidden\" id=\"datepicker\" name=\"ct\" value=\"$ct\">
+			<input type=\"hidden\" name=\"defaut\" value=\"$defaut\">
 			<input type=\"hidden\" name=\"obs\" value=\"$obs\"/>
 			<input type=\"hidden\" name=\"longueur\" value=\"$longueur\"/>
 			<input type=\"hidden\" name=\"largeur\" value=\"$largeur\"/>
@@ -154,7 +154,7 @@ else{
 	}
 ?>
 	<div class="page-header">
-		<a href="ct.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
+		<a href="revision.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
 	    <a href="../gestion.php"><button type="button" class="btn btn-default">Retour Gestion</button></a>
 	</div>
 		</div>

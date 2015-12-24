@@ -2,6 +2,7 @@
 // inclusion
 include "../fonctions_base.php";
 include "../fonctions_annexe.php";
+include "../fonctions_affichage.php";
 include "../header.php";
 ?>
 	<div class="container">
@@ -14,6 +15,9 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 	$prenom=$_POST['prenom'];
 	$tel=$_POST['tel'];
 	$permis=$_POST['permis'];
+	$fimo=$_POST['fimo'];
+	$matiere=$_POST['matiere'];
+	$ppetrolier=$_POST['ppetrolier'];
 	$mail=$_POST['mail'];
 	$date=$_POST['date'];
 	$date_exp = date("Y-m-d", strtotime($date));
@@ -22,7 +26,7 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 	connectBase();
 	 
 	//On prépare la commande sql d'insertion
-	$sql = 'INSERT INTO chauffeur VALUES("","'.$nom.'","'.$prenom.'","'.$tel.'","'.$mail.'","'.$permis.'","'.$date_exp.'")';
+	$sql = 'INSERT INTO chauffeur VALUES("","'.$nom.'","'.$prenom.'","'.$tel.'","'.$mail.'","'.$permis.'","'.$date_exp.'","","'.$fimo.'","'.$matiere.'","'.$ppetrolier.'")';
 	 
 	/*on lance la commande (mysql_query) et au cas où, 
 	on rédige un petit message d'erreur si la requête ne passe pas (or die) 
@@ -33,7 +37,8 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 	mysql_close();
 		
 	// on valide la creation
-	echo "<p><h2>Le chauffeur à bien &eacutet&eacute cr&eacute&eacute</h2></p>";
+	$msg = aff_creer("Le Chauffeur");
+	echo $msg;
 }
 	
 	// sinon on affiche le formulaire
@@ -55,7 +60,7 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 		</tr>
 		<tr>
 			<td>Tel : </td>
-			<td><input type=\"text\" name=\"tel\"/></td>
+			<td><input type=\"tel\" name=\"tel\"/></td>
 		</tr>
 		<tr>
 			<td>Mail :	</td>
@@ -67,7 +72,19 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 		</tr>
 		<tr>
 			<td>Date d'expiration :	</td>
-			<td><input type=\"text\" id=\"datepicker\" name=\"date\"></td>
+			<td><input type=\"date\" name=\"date\"></td>
+		</tr>
+		<tr>
+			<td>Date Fimo :	</td>
+			<td><input type=\"date\" name=\"fimo\"></td>
+		</tr>
+		<tr>
+			<td>Date Matière dangeureuse :	</td>
+			<td><input type=\"date\" name=\"matiere\"></td>
+		</tr>
+		<tr>
+			<td>Date Produits pétroliers :	</td>
+			<td><input type=\"date\" name=\"ppetrolier\"></td>
 		</tr>
 		<tr>
 			<td colspan=\"2\" align=\"center\"><input class=\"btn btn-success\" type=\"submit\" name=\"valider\" value=\"Valider\"/></td>
@@ -76,13 +93,9 @@ if (isset ($_POST['valider']) && !empty($_POST['nom'])){
 		</table>";
 	}
 	
-?>
-	<div class="page-header">
-		<a href="aff_chauffeurs.php"><button type="button" class="btn btn-default">Retour au Listing</button></a><br><br>
-	    <a href="../admin.php"><button type="button" class="btn btn-default">Retour Admin</button></a>
-	</div>
-		</div>
-			</div>
-<?php 
-include "../footer.php"; 
+	// on ferme la page
+	$ppage = piedpage_formulaire("chauffeurs");
+	echo $ppage;
+
+	include "../footer.php"; 
 ?>
