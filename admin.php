@@ -4,7 +4,10 @@ include "fonctions_base.php";
 include "fonctions_annexe.php";
 include "header.php";
 ?>
-    <div class="container">
+    <div align="center">
+		<h1><b>Administration</h1>
+	</div>
+	<div class="container">
 		<br><br>
       <div class="row">
 		<div class="col-sm-4">
@@ -37,7 +40,7 @@ include "header.php";
             </div>
             <div class="panel-body">
 				<li><a href="admin/aff_clients.php" type="button" class="btn btn-default">Lister les Clients</button></a><br><br>
-				<li><a href="admin/aff_produits.php" type="button" class="btn btn-default">Lister les Produits</button></a><br>
+				<li><a href="admin/aff_produits.php" type="button" class="btn btn-default">Lister les Services</button></a><br>
 			</div>
 			</div>
 		</div>

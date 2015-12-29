@@ -4,27 +4,57 @@ include "fonctions_base.php";
 include "fonctions_annexe.php";
 include "header.php";
 ?>
+	<div align="center">
+		<h1><b>Gestion</h1>
+	</div>
 	<div class="container">
-     <div class="row">
-		<h2>Gestion du Parc</h2>
-			<li><a href="gestion/ct.php">Passer un véhicule au contrôle</a><br>
-			<li><a href="gestion/revision.php">Passer un véhicule à la révision</a><br>
-			<li><a href="gestion/reparation.php">Réparer un véhicule</a><br>
-			<li><a href="gestion/hist_controle.php">Voir l'historique des contrôles</a><br>
-			<li><a href="gestion/hist_revision.php">Voir l'historique des révisions</a><br>
-			<li><a href="gestion/hist_reparation.php">Voir l'historique des réparations</a><br>
-			<li><a href="gestion/hist_entretien.php">Calculer le coût d'un véhicule</a><br>
-		<h2>Gestion du Travail</h2>
-			<li><a href="gestion/task.php">Générer la fiche de travail journalière</a><br>
-			<li><a href="gestion/hist_livraison.php">Voir l'historique des tâches</a><br>
-			<li><a href="gestion/cmr.php">Créer une lettre de voiture</a><br>
-			<li><a href="gestion/voyage.php">Enregistrer un voyage</a><br>
-		<h2>Gestion Financière</h2>
-			<li><a href="gestion/add_bon.php">Transformer les livraisons en factures</a><br>
-			<li><a href="gestion/add_devis.php">Créer un Devis</a><br>
-			<li><a href="gestion/add_fact.php">Créer une Facture</a><br>
-			<li><a href="gestion/bilan.php">Voir l'historique des ventes</a><br>
-			<li><a href="gestion/import.php">Import/Export</a><br>
+		<br><br>
+      <div class="row">
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 align="center" class="panel-title"><b>Gestion du Parc</h3>
+            </div>
+            <div class="panel-body">
+			<li><a href="gestion/ct.php" type="button" class="btn btn-default">Passer un véhicule au contrôle</button></a><br><br>
+			<li><a href="gestion/revision.php" type="button" class="btn btn-default">Passer un véhicule à la révision</button></a><br><br>
+			<li><a href="gestion/reparation.php" type="button" class="btn btn-default">Réparer un véhicule</button></a><br><br>
+			<div class="panel panel-default"><div class="panel-heading"></div></div>
+			<li><a href="gestion/hist_controle.php" type="button" class="btn btn-default">Voir l'historique des contrôles</button></a><br><br>
+			<li><a href="gestion/hist_revision.php" type="button" class="btn btn-default">Voir l'historique des révisions</button></a><br><br>
+			<li><a href="gestion/hist_reparation.php" type="button" class="btn btn-default">Voir l'historique des réparations</button></a><br><br>
+			<div class="panel panel-default"><div class="panel-heading"></div></div>
+			<li><a href="gestion/hist_entretien.php" type="button" class="btn btn-default">Calculer le coût d'un véhicule</button></a><br>
+			</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 align="center" class="panel-title"><b>Gestion du Travail</h3>
+            </div>
+            <div class="panel-body">
+			<li><a href="gestion/task.php" type="button" class="btn btn-default">Générer la fiche de travail journalière</button></a><br><br>
+			<li><a href="gestion/voyage.php" type="button" class="btn btn-default">Saisir un transport client</button></a><br><br>
+			<div class="panel panel-default"><div class="panel-heading"></div></div>
+			<li><a href="gestion/hist_livraison.php" type="button" class="btn btn-default">Voir l'historique des transports terminés</button></a><br><br>
+			<li><a href="gestion/hist_journalier.php" type="button" class="btn btn-default">Voir l'historique des tâches journalières</button></a><br><br>
+			</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 align="center" class="panel-title"><b>Gestion Financière</h3>
+            </div>
+            <div class="panel-body">
+			<li><a href="gestion/cmr.php" type="button" class="btn btn-default">Créer une lettre de voiture</button></a><br><br>
+			<li><a href="gestion/add_bon.php" type="button" class="btn btn-default">Transformer les livraisons en factures</button></a><br><br>
+			<li><a href="gestion/bilan.php" type="button" class="btn btn-default">Historique des factures</button></a><br><br>
+			<li><a href="gestion/import.php" type="button" class="btn btn-default">Import/Export</button></a><br>
+			</div>
+		</div>
+	</div>	
 	</div>
 </div>
 <?php 
