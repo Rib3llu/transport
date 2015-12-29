@@ -48,6 +48,7 @@ include "header.php";
               <h3 align="center" class="panel-title"><b>Gestion Financière</h3>
             </div>
             <div class="panel-body">
+			<li><a href="gestion/calc.php" type="button" class="btn btn-default">Calculer le coût d'un transport</button></a><br><br>
 			<li><a href="gestion/cmr.php" type="button" class="btn btn-default">Créer une lettre de voiture</button></a><br><br>
 			<li><a href="gestion/add_bon.php" type="button" class="btn btn-default">Transformer les livraisons en factures</button></a><br><br>
 			<li><a href="gestion/bilan.php" type="button" class="btn btn-default">Historique des factures</button></a><br><br>
