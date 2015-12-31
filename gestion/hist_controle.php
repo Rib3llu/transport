@@ -1,7 +1,5 @@
 <?php
 // inclusion
-include "../fonctions_base.php";
-include "../fonctions_annexe.php";
 include "../header.php";
 ?>
         <br><h1 align="center">Listing des Contrôles Techniques</h1><br>

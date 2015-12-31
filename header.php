@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+<?php
+// inclusion
+include "config/fonctions_base.php";
+include "config/fonctions_annexe.php";
+include "config/fonctions_affichage.php";
+?>
+
   <head>
     <title>Bienvenue sur TRANSPORT</title>
     <meta charset="utf-8">

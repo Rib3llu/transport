@@ -1,8 +1,5 @@
 <?php
 // inclusion
-include "fonctions_base.php";
-include "fonctions_annexe.php";
-include "fonctions_affichage.php";
 include "header.php";
 ?>
 	<div align="center">

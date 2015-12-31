@@ -1,8 +1,7 @@
 <?php
 // inclusion
-include "fonctions_base.php";
-include "fonctions_annexe.php";
 include "header.php";
+include "auth/auth_check.php";
 
 //date du jour
 $today = date("d-m-Y");
